@@ -20,6 +20,16 @@ work](https://doi.org/10.1063/5.0079046).
 The Journal of Chemical Physics \
 156, 054104 (2022)
 
+For results based on the transition pathway or saddle search methods, we kindly ask you to cite [the work introducing these methods](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00214). 
+> Gopal R. Iyer, Noah Whelpley, Juha Tiihonen, Paul R. C. Kent, Jaron T. Krogel, and Brenda Rubenstein \
+The Journal of Chemical Theory and Computation \
+2024, 20, 17, 7416–7429
+
+And, if utilizing the PCA improvement, we kindly ask you to cite [the work introducing it]().
+> TBD
+
+
+
 ## SUPPORT
 
 Installation instructions, examples and other information can be found in the online
