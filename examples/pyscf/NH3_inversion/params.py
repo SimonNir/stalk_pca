@@ -11,6 +11,8 @@ from pyscf.gto.mole import tofile
 from ase.calculators.calculator import Calculator, all_changes
 from ase import Atoms
 from ase.constraints import FixAtoms
+from ase.io import write
+from ase.data import chemical_symbols
 
 from stalk.params.util import mean_distances, mean_param, angle, rotate_2d
 from stalk import ParameterStructure
@@ -86,11 +88,21 @@ def kernel_pyscf(positions, elem):
 
 
 def relax_pyscf(structure: ParameterStructure, outfile='relax.xyz'):
+    # Run mean-field calculation
     mf = kernel_pyscf(structure.pos, structure.elem)
     mf.kernel()
+    energy = mf.e_tot
+
+    # Geometry optimization
     mol_eq = optimize(mf, maxsteps=100)
-    # Write to external file
-    tofile(mol_eq, outfile, format='xyz')
+
+    # Convert to ASE Atoms object
+    symbols = [gto.mole._charge2symbol(c) for c in mol_eq.atom_charges()]
+    positions = mol_eq.atom_coords()
+    atoms = Atoms(symbols=symbols, positions=positions)
+
+    # Save XYZ with energy in comment
+    write(outfile, atoms, comment=f"energy={energy}")
 # end def
 
 

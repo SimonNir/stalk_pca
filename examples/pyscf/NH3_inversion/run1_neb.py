@@ -28,11 +28,11 @@ try:
     for i in range(n_images + 2):
         xyz_file = f'{basedir}/image{i}.xyz'
         image = io.read(xyz_file)
-        traj_neb.append(structure_a.copy(pos=image.positions))
+        traj_neb.append(structure_a.copy(pos=image.positions, surrogate_energy=image.get_total_energy()))
     # end for
 except FileNotFoundError:
     neb = NEB(images, climb=True)
-    opt = BFGS(neb)
+    opt = BFGS(neb, trajectory=f'{basedir}/cineb.xyz', logfile=f'{basedir}/cineb.log')
     opt.run(fmax=0.01)
     positions = opt.atoms.get_positions().reshape(-1, *structure_a.pos.shape)
     traj_neb = []
