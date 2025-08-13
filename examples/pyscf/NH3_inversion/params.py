@@ -97,7 +97,7 @@ def relax_pyscf(structure: ParameterStructure, outfile='relax.xyz'):
     mol_eq = optimize(mf, maxsteps=100)
 
     # Convert to ASE Atoms object
-    symbols = [gto.mole._charge2symbol(c) for c in mol_eq.atom_charges()]
+    symbols = [mol_eq.atom_symbol(i) for i in range(mol_eq.natm)]
     positions = mol_eq.atom_coords()
     atoms = Atoms(symbols=symbols, positions=positions)
 

@@ -4,7 +4,7 @@ from os import makedirs
 from numpy import array, pi
 
 from stalk import ParameterStructure
-from stalk.io import XyzGeometry
+from ase.io import read
 
 from params import forward, backward, relax_pyscf
 
@@ -25,10 +25,12 @@ structure_init = ParameterStructure(
 
 outfile = f'{basedir}/relax.xyz'
 try:
-    geom = XyzGeometry({'suffix': outfile}).load('./')
+    geom = read(outfile)
 except FileNotFoundError:
     new_params = relax_pyscf(structure_init, outfile)
-    geom = XyzGeometry({'suffix': outfile}).load('./')
+    geom = read(outfile)
 # end try
-new_params = structure_init.map_forward(geom.get_pos())
-structure_relax = structure_init.copy(params=new_params)
+new_params = structure_init.map_forward(geom.get_positions())
+structure_relax = structure_init.copy(params=new_params, surrogate_energy=geom.get_total_energy())
+
+print(structure_relax.surrogate_energy)
