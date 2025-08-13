@@ -126,8 +126,9 @@ def pes_pyscf_lda(structure: ParameterStructure, **kwargs):
 pes = PesFunction(pes_pyscf)
 pes_lda = PesFunction(pes_pyscf_lda)
 
-
-class PySCF(Calculator):
+HA_TO_EV    =  27.2114   # ev/Ha
+HA_PER_BOHR_TO_EV_PER_A    =  27.2114 / 0.529177 # (Ha/Bohr) * (eV/Ha) * 1/(A/Bohr) = eV/A
+class PySCF(Calculator):    
     implemented_properties = ['energy', 'forces']
 
     def __init__(self, **kwargs):
@@ -156,7 +157,7 @@ class PySCF(Calculator):
 
     def compute_energy(self, positions, elem):
         mf = kernel_pyscf(positions, elem)
-        return mf.kernel()
+        return mf.kernel()*HA_TO_EV
     # end def
 
     def compute_forces(self, positions, elem):
@@ -164,7 +165,7 @@ class PySCF(Calculator):
         mf.kernel()
         mf_grad = grad.RKS(mf)
         forces = -mf_grad.kernel()
-        return forces
+        return forces*HA_PER_BOHR_TO_EV_PER_A
     # end def
 
 # end class
