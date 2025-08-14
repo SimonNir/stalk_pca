@@ -14,6 +14,7 @@ from stalk.params.ParameterSet import ParameterSet
 
 
 class ParameterStructure(ParameterSet):
+    surrogate_energy = None  # surrogate energy
     forward_func = None  # mapping function from pos to params
     backward_func = None  # mapping function from params to pos
     forward_args = None  # kwargs for the forward mapping
@@ -24,6 +25,7 @@ class ParameterStructure(ParameterSet):
     elem = None  # list of elements
     units = None  # position units
     tol = None  # consistency tolerance
+
 
     def __init__(
         self,
@@ -43,6 +45,8 @@ class ParameterStructure(ParameterSet):
         dim=3,
         translate=True,  # attempt to translate pos
         tol=1e-7,
+        # for compatibility with transition pathway:
+        surrogate_energy= None,
         **kwargs,  # kinds, labels, units
     ):
         self.dim = dim
@@ -68,6 +72,8 @@ class ParameterStructure(ParameterSet):
         if elem is not None:
             self.set_elem(elem)
         # end if
+
+        self.surrogate_energy = surrogate_energy
     # end def
 
     @property
@@ -284,6 +290,7 @@ class ParameterStructure(ParameterSet):
         pos=None,
         axes=None,
         offset=None,
+        surrogate_energy=None,
         **kwargs,
     ):
         structure = deepcopy(self)
@@ -302,6 +309,9 @@ class ParameterStructure(ParameterSet):
         if label is not None:
             structure.label = label
         # end if
+        if surrogate_energy is not None:
+            structure.surrogate_energy = surrogate_energy
+        # end if 
         return structure
     # end def
 
@@ -418,6 +428,10 @@ class ParameterStructure(ParameterSet):
         else:
             string += '\n  periodic: no'
         # end if
+
+        if self.surrogate_energy is not None:
+            string += f'\n  surrogate energy: {self.surrogate_energy:.6f}'
+            
         return string
     # end def
 

@@ -26,16 +26,22 @@ class PathwayImage():
     _hessian: ParameterHessian = None
     _tangent = None
     _subspace = None
-    _reaction_coordinate = None
     _surrogate = None
+    _image_type: str | None = None  # 'eqm' | 'saddle' | 'intermediate'
 
     def __init__(
         self,
         structure: ParameterSet,
-        reaction_coordinate=0
+        image_type: str | None = None, 
+        surrogate_energy: float | None = None,
     ):
         self._structure = structure
-        self._reaction_coordinate = reaction_coordinate
+        self._image_type = image_type
+
+        if surrogate_energy is not None:
+            self.surrogate_energy = surrogate_energy
+        elif structure.surrogate_energy is not None:
+            self.surrogate_energy = structure.surrogate_energy
     # end def
 
     @property
@@ -58,9 +64,27 @@ class PathwayImage():
         return self._surrogate
     # end def
 
-    @property
+    @property # DEPRECATED; retained for compatibility
     def reaction_coordinate(self):
-        return self._reaction_coordinate
+        return None 
+    # end def
+
+    @property
+    def image_type(self):
+        return self._image_type
+    # end def
+
+    @image_type.setter
+    def image_type(self, val: str):
+        if val not in ('eqm', 'saddle', 'intermediate'):
+            raise ValueError("image_type must be 'eqm', 'saddle', or 'intermediate'")
+        self._image_type = val
+        # end if 
+    # end def
+
+    @property
+    def surrogate_energy(self):
+        return self._surrogate_energy
     # end def
 
     @property
@@ -94,12 +118,12 @@ class PathwayImage():
     ):
         hessian_file = f'{path}/hessian.dat'
         makedirs(path, exist_ok=True)
-        if tangent is None:
-            # points A and B are calculated in full parametric space
+        if self.image_type in ('eqm', 'saddle'):
+            # eqm and saddle are calculated in full parametric space
             hessian = ParameterHessian(structure=self.structure)
             subspace = None
             pes_comp = pes
-        else:
+        elif tangent is not None:
             # Calculate orthogonal subspace exluding the tangent direction
             subspace = orthogonal_subspace_basis(tangent)
             # Make a copy of the PesFunction wrapper, then replace the func
@@ -108,6 +132,8 @@ class PathwayImage():
             # Subspace parameter set is a zero-centered p-1 vector
             structure_sub = ParameterSet(zeros(len(subspace)))
             hessian = ParameterHessian(structure=structure_sub)
+        else:
+            raise ValueError("tangent cannot be None for intermediate images")
         # end if
         try:
             hessian_array = loadtxt(hessian_file, ndmin=2)

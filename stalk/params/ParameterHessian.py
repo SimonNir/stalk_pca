@@ -117,7 +117,7 @@ class ParameterHessian():
         self,
         pes: PesFunction,
         structure=None,
-        dp=0.01,
+        dp=0.001,
         dpos_mode=False,
         **kwargs,
     ):
