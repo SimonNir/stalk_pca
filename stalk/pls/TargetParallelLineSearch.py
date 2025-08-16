@@ -117,6 +117,7 @@ class TargetParallelLineSearch(ParallelLineSearch):
         hessian=None,
         targets=None,
         interpolate_kind='cubic',
+        sgn_list=None,
         **pls_args
         # windows=None, window_frac=0.25, noises=None, add_sigma=False, no_eval=False
         # pes=None, pes_func=None, pes_args={}, loader=None, load_func=None, load_args={}
@@ -128,6 +129,7 @@ class TargetParallelLineSearch(ParallelLineSearch):
             path=path,
             structure=structure,
             hessian=hessian,
+            sgn_list=sgn_list,
             **pls_args
         )
         if targets is not None:

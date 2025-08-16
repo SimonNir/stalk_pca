@@ -42,6 +42,8 @@ class PathwayImage():
             self.surrogate_energy = surrogate_energy
         elif structure.surrogate_energy is not None:
             self.surrogate_energy = structure.surrogate_energy
+        else:
+            self.surrogate_energy = None
     # end def
 
     @property
@@ -83,11 +85,6 @@ class PathwayImage():
     # end def
 
     @property
-    def surrogate_energy(self):
-        return self._surrogate_energy
-    # end def
-
-    @property
     def structure_init(self):
         if self._tangent is None:
             return self.lsi.structure_init
@@ -114,7 +111,7 @@ class PathwayImage():
         tangent,
         pes: PesFunction,
         path='',
-        **hessian_args  # dp=0.01, dpos_mode=False, structure=None
+        **hessian_args  # dp=0.001, dpos_mode=False, structure=None
     ):
         hessian_file = f'{path}/hessian.dat'
         makedirs(path, exist_ok=True)
@@ -157,19 +154,39 @@ class PathwayImage():
         overwrite=False,
         **surrogate_args
     ):
-        if self._tangent is None:
+        if self.image_type in ('eqm', 'saddle'):
             pes_sub = pes
-        else:
+        elif self._tangent is not None:
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_sub = copy(pes)
             pes_sub.func = partial(extended_pes, self.structure, self._subspace, pes)
+        else:
+            raise ValueError("tangent cannot be None for intermediate images")
         # end if
+
+        hessian = self.hessian
+        eigvals = hessian.lambdas
+        sgn_list = []
+        neg_eig_indices = [i for i, val in enumerate(eigvals) if val < 0]
+        if len(neg_eig_indices) > 0:
+            if self.image_type != 'saddle':
+                raise ValueError("Negative Hessian eigenvalue found for non-saddle image. This is not allowed.")
+            if len(neg_eig_indices) > 1:
+                raise ValueError("Multiple negative Hessian eigenvalues found for saddle image. This should not happen for a true first-order saddle at surrogate level.")
+            # For saddle: maximize along negative, minimize along positive
+            for i, val in enumerate(eigvals):
+                sgn_list.append(-1 if i in neg_eig_indices else 1)
+        else:
+            # eqm or intermediate: minimize along all
+            sgn_list = [1] * len(eigvals)
+
         path = '{}surrogate'.format(self._path)
         surrogate = TargetParallelLineSearch(
             load='data.p',
             path=path,
             hessian=self.hessian,
             pes=pes_sub,
+            sgn_list=sgn_list,
             **surrogate_args
         )
         surrogate.write_to_disk(overwrite=overwrite)
@@ -194,12 +211,14 @@ class PathwayImage():
         add_sigma=False,
         **lsi_args
     ):
-        if self._tangent is None:
+        if self.image_type in ('eqm', 'saddle'):
             pes_comp = pes
-        else:
+        elif self._tangent is not None:
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_comp = copy(pes)
             pes_comp.func = partial(extended_pes, self.structure, self._subspace, pes)
+        else:
+            raise ValueError("tangent cannot be None for intermediate images")
         # end if
         lsi = LineSearchIteration(
             path=self._path + path,
@@ -213,6 +232,7 @@ class PathwayImage():
         self._lsi = lsi
     # end def
 
+    # DEPRECATED
     def __lt__(self, other):
         return (hasattr(other, 'reaction_coordinate') and
                 self.reaction_coordinate > other.reaction_coordinate)

@@ -65,6 +65,7 @@ class ParallelLineSearch():
         pes_args={},
         interactive=False,
         load=None,  # eliminate loading arg
+        sgn_list=None, 
         # LineSearch args
         **ls_args
         # M=7, fit_kind='pf3', fit_func=None, fit_args={}, N=200, Gs=None, fraction=0.025
@@ -85,6 +86,8 @@ class ParallelLineSearch():
         # end if
         if hessian is not None:
             self.hessian = hessian
+        if sgn_list is not None:
+            self.sgn_list = sgn_list
         # end if
         if self.setup:
             self.initialize(
@@ -271,12 +274,16 @@ class ParallelLineSearch():
     ):
         ls_list = []
         for d, window, noise in zip(range(self.D), windows, noises):
+            sgn = 1
+            if hasattr(self, 'sgn_list') and self.sgn_list is not None:
+                sgn = self.sgn_list[d]
             ls = self.ls_type(
                 structure=self.structure,
                 hessian=self.hessian,
                 d=d,
                 sigma=noise,
                 W=window,
+                sgn=sgn,
                 **ls_args
             )
             ls_list.append(ls)

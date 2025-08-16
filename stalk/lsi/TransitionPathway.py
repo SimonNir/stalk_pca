@@ -13,7 +13,7 @@ from stalk.util.util import directorize
 class TransitionPathway():
     _images: list[PathwayImage] = []  # list of active PathwayImage objects
     _all_images: list[PathwayImage] = [] # Full set of NEB images
-    _active_indices: list[int] = [] # Indices of images being optimized
+    _active_indices: list[int] = [] # Indices of images being optimized (do not use negatives)
     _path = ''  # base path
 
     def __init__(self, path='', all_images: list = None, active_indices: list[int] = None):
@@ -33,10 +33,18 @@ class TransitionPathway():
         self._images = []
 
         # Determine highest-energy image
-        self._max_energy_index = max(range(len(self._all_images)), key=lambda i: self._all_images[i].surrogate_energy)
+        # Determine highest-energy image, allowing None for endpoints only
+        energies = []
+        for i, img in enumerate(self._all_images):
+            energy = img.surrogate_energy
+            if energy is None and i not in (0, len(self._all_images) - 1):
+                raise ValueError(f"Image at index {i} has surrogate_energy=None (only endpoints may be None)")
+            energies.append(energy if energy is not None else float('-inf')) # ignore if endpoints are None
+        self._max_energy_index = max(range(len(self._all_images)), key=lambda i: energies[i])
 
         # Determine active indices
         if active_indices is None:
+            print("No active indices specified; using eqm1, eqm2, and saddle only by default")
             self._active_indices = [0, self._max_energy_index, len(self._all_images)-1]
         else:
             self._active_indices = active_indices
@@ -55,6 +63,9 @@ class TransitionPathway():
                 img_type = 'intermediate'
             image.image_type = img_type
             self._images.append(image)
+
+        # calculate tangents 
+        self.calculate_tangents()
 
     @property
     def path(self):
@@ -120,20 +131,73 @@ class TransitionPathway():
         return array(params), array(params_err)
 
     def calculate_tangents(self):
-        """Compute tangents using the full path; tangent direction depends on position vs saddle."""
+        """Compute tangents for all images using robust local energy rules."""
+        n = len(self._all_images)
         for idx, img in enumerate(self._images):
+            # Find full index in all_images
             full_idx = self._active_indices[idx]
-            if full_idx < self._max_energy_index:
-                prev_img = self._all_images[full_idx-1] if full_idx > 0 else img
-                next_img = self._all_images[full_idx+1] if full_idx+1 < len(self._all_images) else img
-            elif full_idx == self._max_energy_index:
-                prev_img = self._all_images[full_idx-1]
-                next_img = self._all_images[full_idx+1]
+            # Skip endpoints
+            if full_idx == 0:
+                # Forward difference for first image
+                tangent = self._all_images[full_idx + 1].structure.params - img.structure.params
+            elif full_idx == n - 1:
+                # Backward difference for last image
+                tangent = img.structure.params - self._all_images[full_idx - 1].structure.params
             else:
-                prev_img = self._all_images[full_idx-1]
-                next_img = self._all_images[full_idx+1] if full_idx+1 < len(self._all_images) else img
-            tangent = next_img.params - prev_img.params
+                # Intermediate image
+                prev_img = self._all_images[full_idx - 1]
+                next_img = self._all_images[full_idx + 1]
+                curr_img = img
+
+                E_prev = prev_img.surrogate_energy
+                E_curr = curr_img.surrogate_energy
+                E_next = next_img.surrogate_energy
+
+                P_prev = prev_img.structure.params
+                P_curr = curr_img.structure.params
+                P_next = next_img.structure.params
+
+                # First intermediate: if no energy for eqm1, assume E_curr > E_prev
+                if full_idx == 1:
+                    if E_prev is None:
+                        E_prev = E_curr
+                    tangent = P_next - P_curr
+                # Last intermediate: if no energy for eqm2, assume E_curr > E_next
+                elif full_idx == n - 2:
+                    if E_next is None:
+                        E_next = E_curr
+                    tangent = P_curr - P_prev
+                elif E_next > E_curr and E_prev < E_curr:
+                    tangent = P_next - P_curr
+                elif E_prev > E_curr and E_next < E_curr:
+                    tangent = P_curr - P_prev
+                elif E_next > E_curr and E_prev > E_curr:
+                    # Local minimum: weighted average, weights = energy rises
+                    w_fwd = E_next - E_curr
+                    w_bwd = E_prev - E_curr
+                    tangent = (w_fwd * (P_next - P_curr) + w_bwd * (P_curr - P_prev)) / (w_fwd + w_bwd)
+                elif E_next < E_curr and E_prev < E_curr:
+                    # Local maximum: weighted average, weights = energy drops
+                    w_fwd = E_curr - E_next
+                    w_bwd = E_curr - E_prev
+                    tangent = (w_fwd * (P_next - P_curr) + w_bwd * (P_curr - P_prev)) / (w_fwd + w_bwd)
+                else:
+                    # Fallback: central difference
+                    tangent = 0.5 * (P_next - P_prev)
             img.tangent = tangent
+
+    def calculate_hessians(
+        self,
+        **hessian_args,
+    ):
+        for i, image in enumerate(self.images):
+            image.calculate_hessian(
+                tangent=image.tangent,
+                path=('{}image_{}/').format(self.path, self._active_indices[i]),
+                **hessian_args
+            )
+        # end for
+    # end def
 
     def generate_surrogates(self, **surrogate_args):
         for image in self.images:
