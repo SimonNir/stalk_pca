@@ -142,7 +142,6 @@ class PathwayImage():
             # If the full forward and backward are consistent, then the subspace equivalents will be, so 
             # checking here is not really necessary given that the eqm and saddle checks will already verify the 
             # overall parameterization validity
-
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
@@ -254,6 +253,54 @@ class PathwayImage():
     # end def
 
 # end class
+
+def create_subspace_nexus_structure(original_structure: NexusStructure, subspace: ndarray):
+    """Create a NexusStructure that operates in the subspace with proper forward/backward mappings."""
+    from numpy import dot, zeros
+    from copy import deepcopy
+    
+    # Create forward mapping function for the subspace
+    def forward_subspace(pos, axes=None):
+        # Map pos to full parameter space using original forward function
+        if original_structure.periodic and axes is not None:
+            full_params = original_structure.forward_func(pos, axes, **original_structure.forward_args)
+        else:
+            full_params = original_structure.forward_func(pos, **original_structure.forward_args)
+        
+        # Project displacement onto subspace basis vectors
+        disp_vec = full_params - original_structure.params
+        subspace_params = []
+        for sv in subspace:
+            subspace_params.append(dot(disp_vec, sv))
+        return array(subspace_params)
+    
+    # Create backward mapping function for the subspace  
+    def backward_subspace(params):
+        # Convert subspace parameters back to full parameter space
+        full_params = original_structure.params.copy()
+        for i, p in enumerate(params):
+            full_params += p * subspace[i]
+        
+        # Map full parameters back to position space using original backward function
+        return original_structure.backward_func(full_params, **original_structure.backward_args)
+    
+    # Create the subspace NexusStructure with proper mappings
+    structure_sub = NexusStructure(
+        params=zeros(len(subspace)),
+        forward=forward_subspace,
+        backward=backward_subspace,
+        forward_args=original_structure.forward_args.copy(),
+        backward_args=original_structure.backward_args.copy(),
+        pos=original_structure.pos.copy() if original_structure.pos is not None else None,
+        axes=original_structure.axes.copy() if original_structure.axes is not None else None,
+        elem=original_structure.elem.copy() if original_structure.elem is not None else None,
+        units=original_structure.units,
+        dim=original_structure.dim,
+        tol=original_structure.tol,
+        translate=False  # Don't translate since we're setting up the mappings manually
+    )
+    
+    return structure_sub
 
 def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
     # If structure0 is a NexusStructure, preserve that type
