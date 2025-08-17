@@ -131,11 +131,24 @@ class PathwayImage():
             
             # Create the appropriate subspace structure type based on the original structure type
             if isinstance(self.structure, NexusStructure):
+                # For NexusStructure, create a NexusStructure with proper subspace mappings
                 structure_sub = create_subspace_nexus_structure(self.structure, subspace)
+                
+                # For NexusPes, we need to wrap the function differently
+                def extended_pes_wrapper(structure_sub_arg, *args, **kwargs):
+                    return extended_pes(self.structure, subspace, pes, structure_sub_arg, *args, **kwargs)
+                
+                # Make a copy of the PesFunction wrapper, then replace the func
+                pes_comp = copy(pes)
+                pes_comp.func = extended_pes_wrapper
             else:
-                structure_sub = ParameterSet(params=zeros(len(subspace)))
-
-            hessian = ParameterHessian(structure=structure_sub) 
+                # For regular ParameterSet, create a regular ParameterSet
+                structure_sub = ParameterSet(zeros(len(subspace)))
+                # Make a copy of the PesFunction wrapper, then replace the func
+                pes_comp = copy(pes)
+                pes_comp.func = partial(extended_pes, self.structure, subspace, pes)
+            
+            hessian = ParameterHessian(structure=structure_sub)
           
         else:
             raise ValueError("tangent cannot be None for intermediate images")
@@ -168,7 +181,12 @@ class PathwayImage():
         elif self._tangent is not None:
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_sub = copy(pes)
-            pes_sub.func = partial(extended_pes, self.structure, self._subspace, pes)
+            if isinstance(pes, NexusPes):
+                def extended_pes_wrapper(structure_sub_arg, *args, **kwargs):
+                    return extended_pes(self.structure, self._subspace, pes, structure_sub_arg, *args, **kwargs)
+                pes_sub.func = extended_pes_wrapper
+            else:
+                pes_sub.func = partial(extended_pes, self.structure, self._subspace, pes)
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
