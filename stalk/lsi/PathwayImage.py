@@ -299,15 +299,15 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
     
     # Create the subspace NexusStructure with proper mappings
     structure_sub = deepcopy(original_structure)
-    # Reset to zero parameters in subspace
-    structure_sub.params = zeros(len(subspace))
-    structure_sub.params_err = zeros(len(subspace))
     
-    # Set up the subspace mappings
+    # Set up the subspace mappings first
     structure_sub.forward_func = forward_subspace
     structure_sub.backward_func = backward_subspace
     structure_sub.forward_args = original_structure.forward_args.copy()
     structure_sub.backward_args = original_structure.backward_args.copy()
+    
+    # Reset to zero parameters in subspace using the proper method
+    structure_sub.set_params(zeros(len(subspace)), params_err=zeros(len(subspace)))
     
     # Clear jobs and analysis state since this is a different structure
     structure_sub._jobs = None
