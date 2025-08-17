@@ -9,6 +9,7 @@ basedir = 'tpw'
 
 tpw = TransitionPathway(
     path=basedir,
-    images=traj_neb
+    all_images=traj_neb,
+    active_indices=range(len(traj_neb))
 )
 tpw.calculate_hessians(pes=pes)

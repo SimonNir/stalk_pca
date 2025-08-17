@@ -119,6 +119,7 @@ class ParameterHessian():
         structure=None,
         dp=0.001,
         dpos_mode=False,
+        path=None,
         **kwargs,
     ):
         if structure is not None:
@@ -137,6 +138,11 @@ class ParameterHessian():
 
         # Get list of displacements and structures
         dp_list, structure_list = self._get_fdiff_data(dps, dpos_mode=dpos_mode)
+        if path is not None:
+            for s in structure_list:
+                if hasattr(s, "job_path"):
+                    s.job_path = path + '/' + s.label + '/'
+        
         pes.evaluate_all(structure_list, **kwargs)
         # Issue warning when eqm energy is not the apparent minimum
         self._warn_energy(structure_list)
@@ -237,7 +243,7 @@ class ParameterHessian():
         self.structure.value = eqm_value
         for structure in structure_list[0:]:
             if structure.value < eqm_value:
-                warnings.warn(f'Energy for {structure.label} is lower than E_eqm={eqm_value}!')
+                warnings.warn(f'Energy for {structure.label} is lower than E_eqm={eqm_value}! This is only expected for saddle search.')
             # end if
         # end for
     # end def

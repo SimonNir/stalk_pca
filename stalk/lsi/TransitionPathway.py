@@ -131,7 +131,8 @@ class TransitionPathway():
         return array(params), array(params_err)
 
     def calculate_tangents(self):
-        """Compute tangents for all images using robust local energy rules."""
+        """Compute tangents for all active images using robust local energy rules, 
+        originally developed by Henkelman and Jonsson, JCP, 2000."""
         n = len(self._all_images)
         for idx, img in enumerate(self._images):
             # Find full index in all_images
@@ -193,7 +194,7 @@ class TransitionPathway():
         for i, image in enumerate(self.images):
             image.calculate_hessian(
                 tangent=image.tangent,
-                path=('{}image_{}/').format(self.path, self._active_indices[i]),
+                path=('{}image_{}/hessian/').format(self.path, self._active_indices[i]),
                 **hessian_args
             )
         # end for

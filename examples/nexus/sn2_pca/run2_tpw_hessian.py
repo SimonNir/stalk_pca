@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from stalk.lsi.TransitionPathway import TransitionPathway
-from stalk.params.ParameterStructure import ParameterStructure
+from stalk.nexus import NexusStructure
 from ase.io import read 
 from params import pes, forward, backward
 
@@ -16,7 +16,7 @@ for i, image in enumerate(traj_mep_aligned):
         surrogate_energy = None
 
     traj_neb.append(
-        ParameterStructure(
+        NexusStructure(
             forward=forward,
             backward=backward,
             pos=image.positions.reshape(-1, 3),

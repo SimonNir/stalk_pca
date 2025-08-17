@@ -7,11 +7,10 @@ from ase.mep import NEB
 from ase.optimize import BFGS
 from ase import io
 
-from params import neb_image
+from params import neb_image, HA_PER_BOHR_TO_EV_PER_A, HA_TO_EV
 from run0_relax_a import structure_relax as structure_a
 from run0_relax_b import structure_relax as structure_b
 from stalk.params.util import interpolate_params
-
 
 
 # Generate base directory for NEB

@@ -113,17 +113,6 @@ def relax_pyscf(structure: ParameterStructure, outfile='relax.xyz'):
     write(outfile, atoms, comment=f"energy={energy}")
 # end def
 
-
-def pes_pyscf(structure: ParameterStructure, **kwargs):
-    print(f'Computing: {structure.label}')
-    mf = kernel_pyscf(structure.pos, structure.elem)
-    e_scf = mf.kernel()
-    return e_scf, 0.0
-# end def
-
-
-pes = PesFunction(pes_pyscf)
-
 HA_TO_EV    =  27.2114   # ev/Ha
 HA_PER_BOHR_TO_EV_PER_A    =  27.2114 / 0.529177 # (Ha/Bohr) * (eV/Ha) * 1/(A/Bohr) = eV/A
 class PySCF(Calculator):    
@@ -182,6 +171,7 @@ def neb_image(structure: ParameterStructure):
 def scf_pes_job(structure: Structure, path, **kwargs):
     system = generate_physical_system(
         structure=structure,
+        net_charge=-1,
         F=7,
         C=4,
         H=1,
@@ -195,7 +185,8 @@ def scf_pes_job(structure: Structure, path, **kwargs):
         mole=obj(
             verbose=4,
             ecp='ccecp',
-            basis='ccpvdz',
+            basis='ccpvtz',
+            charge=-1,
             symmetry=False,
             cart=True
         ),
@@ -239,6 +230,7 @@ def dmc_pes_job(
     # Center the structure for QMCPACK
     system = generate_physical_system(
         structure=structure,
+        net_charge=-1, 
         F=7,
         C=4,
         H=1,
@@ -254,6 +246,7 @@ def dmc_pes_job(
             verbose=4,
             ecp='ccecp',
             basis='ccpvtz',  # Use larger basis to promote QMC performance
+            charge=-1,
             symmetry=False,
         ),
         save_qmc=True,

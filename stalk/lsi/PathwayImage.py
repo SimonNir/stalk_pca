@@ -138,6 +138,7 @@ class PathwayImage():
         except FileNotFoundError:
             hessian.compute_fdiff(
                 pes=pes_comp,
+                path=path,
                 **hessian_args
             )
             savetxt(hessian_file, hessian.hessian)
