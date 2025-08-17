@@ -68,6 +68,7 @@ Applying user settings
 unable to import scale; defaulting to 1 
 Warning: no surrogate energy found for image 0
 Warning: no surrogate energy found for image 6
+attempted path: tpw/image_0/hessian/
 
 Project starting 
   checking for file collisions 
@@ -110,449 +111,445 @@ Project starting
   
   starting runs:
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-  elapsed time 0.0 s  memory 170.85 MB 
-    Entering ./eqm/ 0 
+  elapsed time 0.0 s  memory 173.46 MB 
+    Entering ./tpw/image_0/hessian/eqm/ 0 
       writing input files  0 scf 
-    Entering ./eqm/ 0 
+    Entering ./tpw/image_0/hessian/eqm/ 0 
       sending required files  0 scf 
       submitting job  0 scf 
-    Entering ./eqm_p0+0.001/ 1 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001/ 1 
       writing input files  1 scf 
-    Entering ./eqm_p0+0.001/ 1 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001/ 1 
       sending required files  1 scf 
       submitting job  1 scf 
-    Entering ./eqm_p0-0.001/ 2 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001/ 2 
       writing input files  2 scf 
-    Entering ./eqm_p0-0.001/ 2 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001/ 2 
       sending required files  2 scf 
       submitting job  2 scf 
-    Entering ./eqm_p0+0.001_p1+0.001/ 3 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1+0.001/ 3 
       writing input files  3 scf 
-    Entering ./eqm_p0+0.001_p1+0.001/ 3 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1+0.001/ 3 
       sending required files  3 scf 
       submitting job  3 scf 
-    Entering ./eqm_p0+0.001_p1-0.001/ 4 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1-0.001/ 4 
       writing input files  4 scf 
-    Entering ./eqm_p0+0.001_p1-0.001/ 4 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1-0.001/ 4 
       sending required files  4 scf 
       submitting job  4 scf 
-    Entering ./eqm_p0-0.001_p1+0.001/ 5 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1+0.001/ 5 
       writing input files  5 scf 
-    Entering ./eqm_p0-0.001_p1+0.001/ 5 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1+0.001/ 5 
       sending required files  5 scf 
       submitting job  5 scf 
-    Entering ./eqm_p0-0.001_p1-0.001/ 6 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1-0.001/ 6 
       writing input files  6 scf 
-    Entering ./eqm_p0-0.001_p1-0.001/ 6 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1-0.001/ 6 
       sending required files  6 scf 
       submitting job  6 scf 
-    Entering ./eqm_p0+0.001_p2+0.001/ 7 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2+0.001/ 7 
       writing input files  7 scf 
-    Entering ./eqm_p0+0.001_p2+0.001/ 7 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2+0.001/ 7 
       sending required files  7 scf 
       submitting job  7 scf 
-    Entering ./eqm_p0+0.001_p2-0.001/ 8 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2-0.001/ 8 
       writing input files  8 scf 
-    Entering ./eqm_p0+0.001_p2-0.001/ 8 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2-0.001/ 8 
       sending required files  8 scf 
       submitting job  8 scf 
-    Entering ./eqm_p0-0.001_p2+0.001/ 9 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2+0.001/ 9 
       writing input files  9 scf 
-    Entering ./eqm_p0-0.001_p2+0.001/ 9 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2+0.001/ 9 
       sending required files  9 scf 
       submitting job  9 scf 
-    Entering ./eqm_p0-0.001_p2-0.001/ 10 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2-0.001/ 10 
       writing input files  10 scf 
-    Entering ./eqm_p0-0.001_p2-0.001/ 10 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2-0.001/ 10 
       sending required files  10 scf 
       submitting job  10 scf 
-    Entering ./eqm_p0+0.001_p3+0.001/ 11 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3+0.001/ 11 
       writing input files  11 scf 
-    Entering ./eqm_p0+0.001_p3+0.001/ 11 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3+0.001/ 11 
       sending required files  11 scf 
       submitting job  11 scf 
-    Entering ./eqm_p0+0.001_p3-0.001/ 12 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3-0.001/ 12 
       writing input files  12 scf 
-    Entering ./eqm_p0+0.001_p3-0.001/ 12 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3-0.001/ 12 
       sending required files  12 scf 
       submitting job  12 scf 
-    Entering ./eqm_p0-0.001_p3+0.001/ 13 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3+0.001/ 13 
       writing input files  13 scf 
-    Entering ./eqm_p0-0.001_p3+0.001/ 13 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3+0.001/ 13 
       sending required files  13 scf 
       submitting job  13 scf 
-    Entering ./eqm_p0-0.001_p3-0.001/ 14 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3-0.001/ 14 
       writing input files  14 scf 
-    Entering ./eqm_p0-0.001_p3-0.001/ 14 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3-0.001/ 14 
       sending required files  14 scf 
       submitting job  14 scf 
-    Entering ./eqm_p1+0.001/ 15 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001/ 15 
       writing input files  15 scf 
-    Entering ./eqm_p1+0.001/ 15 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001/ 15 
       sending required files  15 scf 
       submitting job  15 scf 
-    Entering ./eqm_p1-0.001/ 16 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001/ 16 
       writing input files  16 scf 
-    Entering ./eqm_p1-0.001/ 16 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001/ 16 
       sending required files  16 scf 
       submitting job  16 scf 
-    Entering ./eqm_p1+0.001_p2+0.001/ 17 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2+0.001/ 17 
       writing input files  17 scf 
-    Entering ./eqm_p1+0.001_p2+0.001/ 17 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2+0.001/ 17 
       sending required files  17 scf 
       submitting job  17 scf 
-    Entering ./eqm_p1+0.001_p2-0.001/ 18 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2-0.001/ 18 
       writing input files  18 scf 
-    Entering ./eqm_p1+0.001_p2-0.001/ 18 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2-0.001/ 18 
       sending required files  18 scf 
       submitting job  18 scf 
-    Entering ./eqm_p1-0.001_p2+0.001/ 19 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2+0.001/ 19 
       writing input files  19 scf 
-    Entering ./eqm_p1-0.001_p2+0.001/ 19 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2+0.001/ 19 
       sending required files  19 scf 
       submitting job  19 scf 
-    Entering ./eqm_p1-0.001_p2-0.001/ 20 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2-0.001/ 20 
       writing input files  20 scf 
-    Entering ./eqm_p1-0.001_p2-0.001/ 20 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2-0.001/ 20 
       sending required files  20 scf 
       submitting job  20 scf 
-    Entering ./eqm_p1+0.001_p3+0.001/ 21 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3+0.001/ 21 
       writing input files  21 scf 
-    Entering ./eqm_p1+0.001_p3+0.001/ 21 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3+0.001/ 21 
       sending required files  21 scf 
       submitting job  21 scf 
-    Entering ./eqm_p1+0.001_p3-0.001/ 22 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/ 22 
       writing input files  22 scf 
-    Entering ./eqm_p1+0.001_p3-0.001/ 22 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/ 22 
       sending required files  22 scf 
       submitting job  22 scf 
-    Entering ./eqm_p1-0.001_p3+0.001/ 23 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3+0.001/ 23 
       writing input files  23 scf 
-    Entering ./eqm_p1-0.001_p3+0.001/ 23 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3+0.001/ 23 
       sending required files  23 scf 
       submitting job  23 scf 
-    Entering ./eqm_p1-0.001_p3-0.001/ 24 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3-0.001/ 24 
       writing input files  24 scf 
-    Entering ./eqm_p1-0.001_p3-0.001/ 24 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3-0.001/ 24 
       sending required files  24 scf 
       submitting job  24 scf 
-    Entering ./eqm_p2+0.001/ 25 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001/ 25 
       writing input files  25 scf 
-    Entering ./eqm_p2+0.001/ 25 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001/ 25 
       sending required files  25 scf 
       submitting job  25 scf 
-    Entering ./eqm_p2-0.001/ 26 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001/ 26 
       writing input files  26 scf 
-    Entering ./eqm_p2-0.001/ 26 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001/ 26 
       sending required files  26 scf 
       submitting job  26 scf 
-    Entering ./eqm_p2+0.001_p3+0.001/ 27 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3+0.001/ 27 
       writing input files  27 scf 
-    Entering ./eqm_p2+0.001_p3+0.001/ 27 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3+0.001/ 27 
       sending required files  27 scf 
       submitting job  27 scf 
-    Entering ./eqm_p2+0.001_p3-0.001/ 28 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3-0.001/ 28 
       writing input files  28 scf 
-    Entering ./eqm_p2+0.001_p3-0.001/ 28 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3-0.001/ 28 
       sending required files  28 scf 
       submitting job  28 scf 
-    Entering ./eqm_p2-0.001_p3+0.001/ 29 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3+0.001/ 29 
       writing input files  29 scf 
-    Entering ./eqm_p2-0.001_p3+0.001/ 29 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3+0.001/ 29 
       sending required files  29 scf 
       submitting job  29 scf 
-    Entering ./eqm_p2-0.001_p3-0.001/ 30 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3-0.001/ 30 
       writing input files  30 scf 
-    Entering ./eqm_p2-0.001_p3-0.001/ 30 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3-0.001/ 30 
       sending required files  30 scf 
       submitting job  30 scf 
-    Entering ./eqm_p3+0.001/ 31 
+    Entering ./tpw/image_0/hessian/eqm_p3+0.001/ 31 
       writing input files  31 scf 
-    Entering ./eqm_p3+0.001/ 31 
+    Entering ./tpw/image_0/hessian/eqm_p3+0.001/ 31 
       sending required files  31 scf 
       submitting job  31 scf 
-    Entering ./eqm_p3-0.001/ 32 
+    Entering ./tpw/image_0/hessian/eqm_p3-0.001/ 32 
       writing input files  32 scf 
-    Entering ./eqm_p3-0.001/ 32 
+    Entering ./tpw/image_0/hessian/eqm_p3-0.001/ 32 
       sending required files  32 scf 
       submitting job  32 scf 
-    Entering ./eqm/ 0 
+    Entering ./tpw/image_0/hessian/eqm/ 0 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001/ 1 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001/ 1 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001/ 2 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001/ 2 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p1+0.001/ 3 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1+0.001/ 3 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p1-0.001/ 4 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1-0.001/ 4 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p1+0.001/ 5 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1+0.001/ 5 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p1-0.001/ 6 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1-0.001/ 6 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p2+0.001/ 7 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2+0.001/ 7 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p2-0.001/ 8 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2-0.001/ 8 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p2+0.001/ 9 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2+0.001/ 9 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p2-0.001/ 10 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2-0.001/ 10 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p3+0.001/ 11 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3+0.001/ 11 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0+0.001_p3-0.001/ 12 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3-0.001/ 12 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p3+0.001/ 13 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3+0.001/ 13 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p0-0.001_p3-0.001/ 14 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3-0.001/ 14 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1+0.001/ 15 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001/ 15 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1-0.001/ 16 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001/ 16 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1+0.001_p2+0.001/ 17 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2+0.001/ 17 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1+0.001_p2-0.001/ 18 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2-0.001/ 18 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1-0.001_p2+0.001/ 19 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2+0.001/ 19 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1-0.001_p2-0.001/ 20 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2-0.001/ 20 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1+0.001_p3+0.001/ 21 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3+0.001/ 21 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1+0.001_p3-0.001/ 22 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/ 22 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1-0.001_p3+0.001/ 23 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3+0.001/ 23 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p1-0.001_p3-0.001/ 24 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3-0.001/ 24 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2+0.001/ 25 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001/ 25 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2-0.001/ 26 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001/ 26 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2+0.001_p3+0.001/ 27 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3+0.001/ 27 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2+0.001_p3-0.001/ 28 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3-0.001/ 28 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2-0.001_p3+0.001/ 29 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3+0.001/ 29 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p2-0.001_p3-0.001/ 30 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3-0.001/ 30 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
-    Entering ./eqm_p3+0.001/ 31 
-      Executing:  
-        export OMP_NUM_THREADS=1
-        python3 scf.py 
-
-  elapsed time 5.5 s  memory 10618.27 MB 
-  elapsed time 8.5 s  memory 11243.37 MB 
-  elapsed time 11.6 s  memory 20357.14 MB 
-  elapsed time 14.7 s  memory 29194.67 MB 
-  elapsed time 17.7 s  memory 27517.19 MB 
-  elapsed time 20.8 s  memory 27920.05 MB 
-  elapsed time 23.8 s  memory 27886.77 MB 
-  elapsed time 26.9 s  memory 17385.56 MB 
-    Entering ./eqm_p0-0.001/ 2 
-      copying results  2 scf 
-    Entering ./eqm_p0-0.001/ 2 
-      analyzing  2 scf 
-    Entering ./eqm_p0+0.001_p1+0.001/ 3 
-      copying results  3 scf 
-    Entering ./eqm_p0+0.001_p1+0.001/ 3 
-      analyzing  3 scf 
-    Entering ./eqm_p0-0.001_p1-0.001/ 6 
-      copying results  6 scf 
-    Entering ./eqm_p0-0.001_p1-0.001/ 6 
-      analyzing  6 scf 
-    Entering ./eqm_p0+0.001_p2+0.001/ 7 
-      copying results  7 scf 
-    Entering ./eqm_p0+0.001_p2+0.001/ 7 
-      analyzing  7 scf 
-    Entering ./eqm_p0+0.001_p3-0.001/ 12 
-      copying results  12 scf 
-    Entering ./eqm_p0+0.001_p3-0.001/ 12 
-      analyzing  12 scf 
-    Entering ./eqm_p1+0.001/ 15 
-      copying results  15 scf 
-    Entering ./eqm_p1+0.001/ 15 
-      analyzing  15 scf 
-    Entering ./eqm_p1+0.001_p2+0.001/ 17 
-      copying results  17 scf 
-    Entering ./eqm_p1+0.001_p2+0.001/ 17 
-      analyzing  17 scf 
-    Entering ./eqm_p1+0.001_p2-0.001/ 18 
-      copying results  18 scf 
-    Entering ./eqm_p1+0.001_p2-0.001/ 18 
-      analyzing  18 scf 
-    Entering ./eqm_p1+0.001_p3-0.001/ 22 
-      copying results  22 scf 
-    Entering ./eqm_p1+0.001_p3-0.001/ 22 
-      analyzing  22 scf 
-    Entering ./eqm_p1-0.001_p3-0.001/ 24 
-      copying results  24 scf 
-    Entering ./eqm_p1-0.001_p3-0.001/ 24 
-      analyzing  24 scf 
-    Entering ./eqm_p2+0.001_p3+0.001/ 27 
-      copying results  27 scf 
-    Entering ./eqm_p2+0.001_p3+0.001/ 27 
-      analyzing  27 scf 
-    Entering ./eqm_p3-0.001/ 32 
+    Entering ./tpw/image_0/hessian/eqm_p3+0.001/ 31 
       Executing:  
         export OMP_NUM_THREADS=1
         python3 scf.py 
 
-  elapsed time 30.5 s  memory 766.66 MB 
-    Entering ./eqm/ 0 
+  elapsed time 6.2 s  memory 29900.55 MB 
+  elapsed time 9.4 s  memory 27682.72 MB 
+  elapsed time 12.5 s  memory 27648.68 MB 
+  elapsed time 15.7 s  memory 174.12 MB 
+    Entering ./tpw/image_0/hessian/eqm/ 0 
       copying results  0 scf 
-    Entering ./eqm/ 0 
+    Entering ./tpw/image_0/hessian/eqm/ 0 
       analyzing  0 scf 
-    Entering ./eqm_p0+0.001/ 1 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001/ 1 
       copying results  1 scf 
-    Entering ./eqm_p0+0.001/ 1 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001/ 1 
       analyzing  1 scf 
-    Entering ./eqm_p0+0.001_p1-0.001/ 4 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001/ 2 
+      copying results  2 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001/ 2 
+      analyzing  2 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1+0.001/ 3 
+      copying results  3 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1+0.001/ 3 
+      analyzing  3 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1-0.001/ 4 
       copying results  4 scf 
-    Entering ./eqm_p0+0.001_p1-0.001/ 4 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p1-0.001/ 4 
       analyzing  4 scf 
-    Entering ./eqm_p0-0.001_p1+0.001/ 5 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1+0.001/ 5 
       copying results  5 scf 
-    Entering ./eqm_p0-0.001_p1+0.001/ 5 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1+0.001/ 5 
       analyzing  5 scf 
-    Entering ./eqm_p0+0.001_p2-0.001/ 8 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1-0.001/ 6 
+      copying results  6 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p1-0.001/ 6 
+      analyzing  6 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2+0.001/ 7 
+      copying results  7 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2+0.001/ 7 
+      analyzing  7 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2-0.001/ 8 
       copying results  8 scf 
-    Entering ./eqm_p0+0.001_p2-0.001/ 8 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p2-0.001/ 8 
       analyzing  8 scf 
-    Entering ./eqm_p0-0.001_p2+0.001/ 9 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2+0.001/ 9 
       copying results  9 scf 
-    Entering ./eqm_p0-0.001_p2+0.001/ 9 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2+0.001/ 9 
       analyzing  9 scf 
-    Entering ./eqm_p0-0.001_p2-0.001/ 10 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2-0.001/ 10 
       copying results  10 scf 
-    Entering ./eqm_p0-0.001_p2-0.001/ 10 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p2-0.001/ 10 
       analyzing  10 scf 
-    Entering ./eqm_p0+0.001_p3+0.001/ 11 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3+0.001/ 11 
       copying results  11 scf 
-    Entering ./eqm_p0+0.001_p3+0.001/ 11 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3+0.001/ 11 
       analyzing  11 scf 
-    Entering ./eqm_p0-0.001_p3+0.001/ 13 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3-0.001/ 12 
+      copying results  12 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0+0.001_p3-0.001/ 12 
+      analyzing  12 scf 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3+0.001/ 13 
       copying results  13 scf 
-    Entering ./eqm_p0-0.001_p3+0.001/ 13 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3+0.001/ 13 
       analyzing  13 scf 
-    Entering ./eqm_p0-0.001_p3-0.001/ 14 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3-0.001/ 14 
       copying results  14 scf 
-    Entering ./eqm_p0-0.001_p3-0.001/ 14 
+    Entering ./tpw/image_0/hessian/eqm_p0-0.001_p3-0.001/ 14 
       analyzing  14 scf 
-    Entering ./eqm_p1-0.001/ 16 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001/ 15 
+      copying results  15 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001/ 15 
+      analyzing  15 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001/ 16 
       copying results  16 scf 
-    Entering ./eqm_p1-0.001/ 16 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001/ 16 
       analyzing  16 scf 
-    Entering ./eqm_p1-0.001_p2+0.001/ 19 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2+0.001/ 17 
+      copying results  17 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2+0.001/ 17 
+      analyzing  17 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2-0.001/ 18 
+      copying results  18 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p2-0.001/ 18 
+      analyzing  18 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2+0.001/ 19 
       copying results  19 scf 
-    Entering ./eqm_p1-0.001_p2+0.001/ 19 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2+0.001/ 19 
       analyzing  19 scf 
-    Entering ./eqm_p1-0.001_p2-0.001/ 20 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2-0.001/ 20 
       copying results  20 scf 
-    Entering ./eqm_p1-0.001_p2-0.001/ 20 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p2-0.001/ 20 
       analyzing  20 scf 
-    Entering ./eqm_p1+0.001_p3+0.001/ 21 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3+0.001/ 21 
       copying results  21 scf 
-    Entering ./eqm_p1+0.001_p3+0.001/ 21 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3+0.001/ 21 
       analyzing  21 scf 
-    Entering ./eqm_p1-0.001_p3+0.001/ 23 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/ 22 
+      copying results  22 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/ 22 
+      analyzing  22 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3+0.001/ 23 
       copying results  23 scf 
-    Entering ./eqm_p1-0.001_p3+0.001/ 23 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3+0.001/ 23 
       analyzing  23 scf 
-    Entering ./eqm_p2+0.001/ 25 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3-0.001/ 24 
+      copying results  24 scf 
+    Entering ./tpw/image_0/hessian/eqm_p1-0.001_p3-0.001/ 24 
+      analyzing  24 scf 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001/ 25 
       copying results  25 scf 
-    Entering ./eqm_p2+0.001/ 25 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001/ 25 
       analyzing  25 scf 
-    Entering ./eqm_p2-0.001/ 26 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001/ 26 
       copying results  26 scf 
-    Entering ./eqm_p2-0.001/ 26 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001/ 26 
       analyzing  26 scf 
-    Entering ./eqm_p2+0.001_p3-0.001/ 28 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3+0.001/ 27 
+      copying results  27 scf 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3+0.001/ 27 
+      analyzing  27 scf 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3-0.001/ 28 
       copying results  28 scf 
-    Entering ./eqm_p2+0.001_p3-0.001/ 28 
+    Entering ./tpw/image_0/hessian/eqm_p2+0.001_p3-0.001/ 28 
       analyzing  28 scf 
-    Entering ./eqm_p2-0.001_p3+0.001/ 29 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3+0.001/ 29 
       copying results  29 scf 
-    Entering ./eqm_p2-0.001_p3+0.001/ 29 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3+0.001/ 29 
       analyzing  29 scf 
-    Entering ./eqm_p2-0.001_p3-0.001/ 30 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3-0.001/ 30 
       copying results  30 scf 
-    Entering ./eqm_p2-0.001_p3-0.001/ 30 
+    Entering ./tpw/image_0/hessian/eqm_p2-0.001_p3-0.001/ 30 
       analyzing  30 scf 
-    Entering ./eqm_p3+0.001/ 31 
+    Entering ./tpw/image_0/hessian/eqm_p3+0.001/ 31 
       copying results  31 scf 
-    Entering ./eqm_p3+0.001/ 31 
+    Entering ./tpw/image_0/hessian/eqm_p3+0.001/ 31 
       analyzing  31 scf 
+    Entering ./tpw/image_0/hessian/eqm_p3-0.001/ 32 
+      Executing:  
+        export OMP_NUM_THREADS=1
+        python3 scf.py 
 
-  elapsed time 34.7 s  memory 902.31 MB 
-  elapsed time 37.7 s  memory 170.93 MB 
-    Entering ./eqm_p3-0.001/ 32 
+  elapsed time 20.9 s  memory 812.16 MB 
+  elapsed time 24.0 s  memory 1148.91 MB 
+  elapsed time 27.1 s  memory 827.60 MB 
+  elapsed time 30.1 s  memory 173.87 MB 
+    Entering ./tpw/image_0/hessian/eqm_p3-0.001/ 32 
       copying results  32 scf 
-    Entering ./eqm_p3-0.001/ 32 
+    Entering ./tpw/image_0/hessian/eqm_p3-0.001/ 32 
       analyzing  32 scf 
 
 Project finished

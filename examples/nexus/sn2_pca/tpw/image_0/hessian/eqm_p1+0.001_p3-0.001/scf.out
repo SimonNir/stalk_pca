@@ -1,0 +1,136 @@
+#INFO: **** input file is /oscar/home/snirenbe/stalk_pca/examples/nexus/sn2_pca/tpw/image_0/hessian/eqm_p1+0.001_p3-0.001/scf.py ****
+#!/usr/bin/env python3
+
+from pyscf import dft
+from numpy import savetxt
+
+
+### generated system text ###
+from pyscf import gto as gto_loc
+mol = gto_loc.Mole()
+mol.verbose  = 4
+mol.atom     = '''
+               C    0.37907653   0.00000230   0.00000000
+               H    0.00125712   1.02575689  -0.00000000
+               H    0.00125664  -0.51287464   0.88832936
+               H    0.00125664  -0.51287464  -0.88832936
+               F   -2.19629286   0.00000030  -0.00000000
+               F    1.81344592  -0.00000056   0.00000000
+               '''
+mol.basis    = 'ccpvtz'
+mol.unit     = 'A'
+mol.ecp      = 'ccecp'
+mol.charge   = -1
+mol.spin     = 0
+mol.symmetry = False
+mol.cart     = True
+mol.build()
+### end generated system text ###
+
+
+
+### generated calculation text ###
+mf = dft.RKS(mol)
+mf.xc = 'pbe'
+e_scf = mf.kernel()
+### end generated calculation text ###
+
+savetxt('energy.dat', [[e_scf, 0.0]])#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='node1934.oscar.ccv.brown.edu', release='5.14.0-284.11.1.el9_2_cifs.x86_64', version='#1 SMP PREEMPT_DYNAMIC Tue Feb 20 16:51:59 EST 2024', machine='x86_64')  Threads 1
+Python 3.11.0 (main, Jan 10 2024, 14:25:36) [GCC 11.3.1 20221121 (Red Hat 11.3.1-4)]
+numpy 2.3.2  scipy 1.16.1  h5py 3.14.0
+Date: Sun Aug 17 12:17:34 2025
+PySCF version 2.10.0
+PySCF path  /users/snirenbe/stalk_venv/lib64/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 6
+[INPUT] num. electrons = 22
+[INPUT] charge = -1
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = A
+[INPUT] Cartesian GTO integrals (6d 10f)
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 C      0.379076530000   0.000002300000   0.000000000000 AA    0.716350821950   0.000004346370   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.001257120000   1.025756890000   0.000000000000 AA    0.002375612506   1.938399592486   0.000000000000 Bohr   0.0
+[INPUT]  3 H      0.001256640000  -0.512874640000   0.888329360000 AA    0.002374705437  -0.969192605835   1.678699198810 Bohr   0.0
+[INPUT]  4 H      0.001256640000  -0.512874640000  -0.888329360000 AA    0.002374705437  -0.969192605835  -1.678699198810 Bohr   0.0
+[INPUT]  5 F     -2.196292860000   0.000000300000   0.000000000000 AA   -4.150391994738   0.000000566918   0.000000000000 Bohr   0.0
+[INPUT]  6 F      1.813445920000  -0.000000560000   0.000000000000 AA    3.426916130510  -0.000001058247   0.000000000000 Bohr   0.0
+
+nuclear repulsion = 39.1715419850955
+number of shells = 45
+number of NR pGTOs = 192
+number of NR cGTOs = 150
+basis = ccpvtz
+ecp = ccecp
+CPU time:         0.42
+
+
+******** <class 'pyscf.dft.rks.RKS'> ********
+method = RKS
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpj67p7z7s
+max_memory 4000 MB (current use 97 MB)
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7f6d0abac9a0>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7f6d0abac900>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 72072
+init E= -37.5432667785908
+  HOMO = -0.369999315505805  LUMO = -0.00556459432685901
+cycle= 1 E= -55.7955534421807  delta_E= -18.3  |g|= 0.866  |ddm|= 1.89
+
+WARN: HOMO 0.271016500891906 == LUMO 0.271017152985012
+
+cycle= 2 E= -46.9610911091835  delta_E= 8.83  |g|= 4.47  |ddm|= 54.5
+  HOMO = 0.0393232299111496  LUMO = 0.226660441063497
+cycle= 3 E= -55.8810295918497  delta_E= -8.92  |g|= 0.59  |ddm|= 54.4
+  HOMO = 0.0869482698928642  LUMO = 0.202651269561739
+cycle= 4 E= -55.919242104707  delta_E= -0.0382  |g|= 0.383  |ddm|= 0.816
+  HOMO = 0.0913155617182094  LUMO = 0.201503291817479
+cycle= 5 E= -55.9400966694984  delta_E= -0.0209  |g|= 0.0888  |ddm|= 0.223
+  HOMO = 0.0888152886715896  LUMO = 0.205487865101799
+cycle= 6 E= -55.9413409618115  delta_E= -0.00124  |g|= 0.0517  |ddm|= 0.0747
+  HOMO = 0.0812617919238746  LUMO = 0.20457485950022
+cycle= 7 E= -55.9418652967675  delta_E= -0.000524  |g|= 0.00993  |ddm|= 0.0618
+  HOMO = 0.0799364409498143  LUMO = 0.204154351459243
+cycle= 8 E= -55.9418805518532  delta_E= -1.53e-05  |g|= 0.00238  |ddm|= 0.0104
+  HOMO = 0.0797192221548152  LUMO = 0.204168930577854
+cycle= 9 E= -55.9418815088282  delta_E= -9.57e-07  |g|= 0.000207  |ddm|= 0.00247
+  HOMO = 0.0797174878126184  LUMO = 0.204175104336174
+cycle= 10 E= -55.9418815184844  delta_E= -9.66e-09  |g|= 2.12e-05  |ddm|= 0.000218
+  HOMO = 0.0797205015223085  LUMO = 0.204175865918351
+cycle= 11 E= -55.9418815185707  delta_E= -8.63e-11  |g|= 2.91e-06  |ddm|= 2.53e-05
+  HOMO = 0.0797212516088876  LUMO = 0.204175599911575
+Extra cycle  E= -55.9418815185676  delta_E= 3.03e-12  |g|= 5.22e-06  |ddm|= 9.22e-06
+converged SCF energy = -55.9418815185676
