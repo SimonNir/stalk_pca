@@ -1,19 +1,11 @@
-#!/usr/bin/env python3
-'''LineSearchIteration class for treating iteration of subsequent parallel linesearches'''
-
-__author__ = "Juha Tiihonen"
-__email__ = "tiihonen@iki.fi"
-__license__ = "BSD-3-Clause"
-
 from copy import copy, deepcopy
 from os import makedirs
-from numpy import savetxt, loadtxt, array
+from numpy import savetxt, loadtxt, array, dot, zeros
 from functools import partial
 
 from numpy import ndarray, zeros
 from stalk.lsi.LineSearchIteration import LineSearchIteration
 from stalk.nexus import NexusPes, NexusStructure
-from stalk.params import ParameterStructure
 from stalk.params.ParameterHessian import ParameterHessian
 from stalk.params.ParameterSet import ParameterSet
 from stalk.params.PesFunction import PesFunction
@@ -125,9 +117,6 @@ class PathwayImage():
         elif tangent is not None:
             # Calculate orthogonal subspace exluding the tangent direction
             subspace = orthogonal_subspace_basis(tangent)
-            # Make a copy of the PesFunction wrapper, then replace the func
-            pes_comp = copy(pes)
-            pes_comp.func = partial(extended_pes, self.structure, subspace, pes)
             
             # Create the appropriate subspace structure type based on the original structure type
             if isinstance(self.structure, NexusStructure):
@@ -149,7 +138,6 @@ class PathwayImage():
                 pes_comp.func = partial(extended_pes, self.structure, subspace, pes)
             
             hessian = ParameterHessian(structure=structure_sub)
-          
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
@@ -243,7 +231,12 @@ class PathwayImage():
         elif self._tangent is not None:
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_comp = copy(pes)
-            pes_comp.func = partial(extended_pes, self.structure, self._subspace, pes)
+            if isinstance(pes, NexusPes):
+                def extended_pes_wrapper(structure_sub_arg, *args, **kwargs):
+                    return extended_pes(self.structure, self._subspace, pes, structure_sub_arg, *args, **kwargs)
+                pes_comp.func = extended_pes_wrapper
+            else:
+                pes_comp.func = partial(extended_pes, self.structure, self._subspace, pes)
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
@@ -267,9 +260,10 @@ class PathwayImage():
 
 # end class
 
+
 def create_subspace_nexus_structure(original_structure: NexusStructure, subspace: ndarray):
     """Create a NexusStructure that operates in the subspace with proper forward/backward mappings."""
-    from numpy import dot, zeros
+    from numpy import dot, zeros, array
     from copy import deepcopy
     
     # Create forward mapping function for the subspace
@@ -298,18 +292,19 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
         return original_structure.backward_func(full_params, **original_structure.backward_args)
     
     # Create the subspace NexusStructure with proper mappings
+    # Start with a deep copy to preserve all attributes, then modify what we need
     structure_sub = deepcopy(original_structure)
-
+    
     # Clear the existing parameter list so we can initialize with new dimensions
     structure_sub._param_list = []
     
-    # Set up the subspace mappings first
+    # Set up the subspace mappings
     structure_sub.forward_func = forward_subspace
     structure_sub.backward_func = backward_subspace
     structure_sub.forward_args = original_structure.forward_args.copy()
     structure_sub.backward_args = original_structure.backward_args.copy()
     
-    # Reset to zero parameters in subspace using the proper method
+    # Now set parameters in subspace dimension - this will initialize the parameter list
     structure_sub.set_params(zeros(len(subspace)), params_err=zeros(len(subspace)))
     
     # Clear jobs and analysis state since this is a different structure
@@ -322,10 +317,37 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
     
     return structure_sub
 
-def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
+
+def extend_structure(structure0: ParameterSet, structure_sub, subspace):
+    # Handle case where structure_sub might be a Nexus Structure object (without label attribute)
+    if hasattr(structure_sub, 'label'):
+        label = structure_sub.label
+    else:
+        label = ''  # Default label for Nexus Structure objects
+    
     # If structure0 is a NexusStructure, preserve that type
-    structure = structure0.copy(label=structure_sub.label)
-    structure.shift_params(structure_sub.params @ subspace)
+    structure = structure0.copy(label=label)
+    
+    # Get parameters from structure_sub - handle different object types
+    if hasattr(structure_sub, 'params'):
+        # It's a ParameterSet or NexusStructure - use params directly
+        params_sub = structure_sub.params
+    elif hasattr(structure_sub, 'pos'):
+        # It's a Nexus Structure object - we need to map it back to parameters using forward mapping
+        if structure0.forward_func is not None:
+            if structure0.periodic and hasattr(structure_sub, 'axes'):
+                params_full = structure0.forward_func(structure_sub.pos, structure_sub.axes, **structure0.forward_args)
+            else:
+                params_full = structure0.forward_func(structure_sub.pos, **structure0.forward_args)
+            # Project displacement onto subspace
+            disp_vec = params_full - structure0.params
+            params_sub = array([dot(disp_vec, sv) for sv in subspace])
+        else:
+            raise ValueError("Cannot extract parameters from Structure object without forward mapping")
+    else:
+        raise ValueError(f"Cannot extract parameters from object of type {type(structure_sub)}")
+    
+    structure.shift_params(params_sub @ subspace)
     if isinstance(structure0, NexusStructure):
         assert isinstance(structure, NexusStructure)
     return structure
@@ -334,25 +356,46 @@ def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subs
 
 def extend_structure_errors(
     structure0: ParameterSet,
-    structure_sub: ParameterSet,
+    structure_sub,
     subspace,
     N=200,
     fraction=0.025
 ):
-    ps_sub = structure_sub.get_params_distribution(N=N)
+    # Handle case where structure_sub might be a Nexus Structure object
+    if hasattr(structure_sub, 'label'):
+        label = structure_sub.label
+    else:
+        label = getattr(structure_sub, 'label', '')
+    
+    # Get parameters from structure_sub - handle different object types
+    if hasattr(structure_sub, 'params'):
+        params_sub_base = structure_sub.params
+        if hasattr(structure_sub, 'get_params_distribution'):
+            ps_sub = structure_sub.get_params_distribution(N=N)
+        else:
+            ps_sub = [params_sub_base] * N  # Fallback if no error distribution available
+    else:
+        # Handle case where it's a Nexus Structure object
+        raise ValueError(f"extend_structure_errors not implemented for {type(structure_sub)}")
+    
     ps = []
     for p_sub in ps_sub:
         ps.append(structure0.params + p_sub @ subspace)
     # end for
     ps = array(ps).T
     params_err = [get_fraction_error(p, fraction=fraction)[1] for p in ps]
-    structure = structure0.copy(label=structure_sub.label)
+    structure = structure0.copy(label=label)
     structure.set_params(
-        structure0.params + structure_sub.params @ subspace,
+        structure0.params + params_sub_base @ subspace,
         params_err=params_err
     )
-    structure.value = structure_sub.value
-    structure.error = structure_sub.error
+    
+    # Set value and error if available
+    if hasattr(structure_sub, 'value'):
+        structure.value = structure_sub.value
+    if hasattr(structure_sub, 'error'):
+        structure.error = structure_sub.error
+    
     return structure
 # end def
 
@@ -365,8 +408,18 @@ def extended_pes(
     *args,
     **kwargs
 ):
+    # Debug: Print what we're actually receiving
+    print(f"DEBUG: extended_pes received structure_sub of type: {type(structure_sub)}")
+    if hasattr(structure_sub, 'params'):
+        print(f"DEBUG: structure_sub has params: {structure_sub.params}")
+    elif hasattr(structure_sub, 'pos'):
+        print(f"DEBUG: structure_sub has pos: {structure_sub.pos.shape}")
+    
     if isinstance(pes, NexusPes):
-        assert isinstance(structure, NexusStructure)
+        assert isinstance(structure, NexusStructure), f"Expected NexusStructure when using NexusPes, got {type(structure)}"
+        # We expect structure_sub to be NexusStructure too, but let's see what we actually get
+        print(f"DEBUG: structure_sub type check - expected NexusStructure, got {type(structure_sub)}")
+    
     new_structure = extend_structure(structure, structure_sub, subspace)
-    return pes.func(new_structure, **kwargs)
+    return pes.func(new_structure, *args, **kwargs)
 # end def
