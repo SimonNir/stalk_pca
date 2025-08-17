@@ -194,7 +194,7 @@ class TransitionPathway():
         for i, image in enumerate(self.images):
             image.calculate_hessian(
                 tangent=image.tangent,
-                path=('{}image_{}/hessian/').format(self.path, self._active_indices[i]),
+                path=('{}/image_{}/hessian/').format(self.path, self._active_indices[i]),
                 **hessian_args
             )
         # end for

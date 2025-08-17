@@ -183,7 +183,6 @@ def scf_pes_job(structure: Structure, path, **kwargs):
         job=job(**pyscfjob),
         path=path,
         mole=obj(
-            verbose=4,
             ecp='ccecp',
             basis='ccpvtz',
             charge=-1,
@@ -243,7 +242,6 @@ def dmc_pes_job(
         path=path + 'scf',
         mole=obj(
             spin=4,
-            verbose=4,
             ecp='ccecp',
             basis='ccpvtz',  # Use larger basis to promote QMC performance
             charge=-1,
