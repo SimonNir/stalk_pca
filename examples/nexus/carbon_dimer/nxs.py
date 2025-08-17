@@ -4,7 +4,7 @@
 from nexus import obj, settings
 
 # Configure Nexus on a local machine
-cores = 32
+cores = 4
 nx_settings = obj(
     sleep=3,
     pseudo_dir='../pseudos',

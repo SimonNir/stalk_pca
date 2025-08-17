@@ -9,6 +9,7 @@ wget https://pseudopotentiallibrary.org/recipes/H/ccECP/H.ccECP.xml
 wget https://pseudopotentiallibrary.org/recipes/H/ccECP/H.ccECP.upf
 wget https://pseudopotentiallibrary.org/recipes/C/ccECP/C.ccECP.xml
 wget https://pseudopotentiallibrary.org/recipes/C/ccECP/C.ccECP.upf
+wget https://pseudopotentiallibrary.org/recipes/F/ccECP/F.ccECP.xml
 
 # download ultrasoft GBRV pseudopotentials
 wget http://www.physics.rutgers.edu/gbrv/all_pbe_UPF_v1.5.tar.gz

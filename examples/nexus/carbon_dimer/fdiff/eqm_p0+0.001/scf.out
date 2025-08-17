@@ -1,0 +1,132 @@
+#INFO: **** input file is /oscar/home/snirenbe/stalk_pca/examples/nexus/carbon_dimer/fdiff/eqm_p0+0.001/scf.py ****
+#!/usr/bin/env python3
+
+from pyscf import dft
+from numpy import savetxt
+
+
+### generated system text ###
+from pyscf import gto as gto_loc
+mol = gto_loc.Mole()
+mol.verbose  = 4
+mol.atom     = '''
+               C    0.00000000   0.00000000  -0.77853427
+               C    0.00000000   0.00000000   0.77853427
+               '''
+mol.basis    = 'ccpvdz'
+mol.unit     = 'A'
+mol.ecp      = 'ccecp'
+mol.charge   = 0
+mol.spin     = 4
+mol.symmetry = False
+mol.build()
+### end generated system text ###
+
+
+
+### generated calculation text ###
+mf = dft.RKS(mol)
+mf.xc = 'pbe'
+e_scf = mf.kernel()
+### end generated calculation text ###
+
+savetxt('energy.dat', [[e_scf, 0.0]])#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='node2334.oscar.ccv.brown.edu', release='5.14.0-284.11.1.el9_2_cifs.x86_64', version='#1 SMP PREEMPT_DYNAMIC Tue Feb 20 16:51:59 EST 2024', machine='x86_64')  Threads 1
+Python 3.11.0 (main, Jan 10 2024, 14:25:36) [GCC 11.3.1 20221121 (Red Hat 11.3.1-4)]
+numpy 2.3.2  scipy 1.16.1  h5py 3.14.0
+Date: Sat Aug 16 20:32:06 2025
+PySCF version 2.10.0
+PySCF path  /users/snirenbe/stalk_venv/lib64/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 8
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 4
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = A
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 C      0.000000000000   0.000000000000  -0.778534270000 AA    0.000000000000   0.000000000000  -1.471216548888 Bohr   0.0
+[INPUT]  2 C      0.000000000000   0.000000000000   0.778534270000 AA    0.000000000000   0.000000000000   1.471216548888 Bohr   0.0
+
+nuclear repulsion = 5.43767673497533
+number of shells = 10
+number of NR pGTOs = 52
+number of NR cGTOs = 28
+basis = ccpvdz
+ecp = ccecp
+CPU time:         0.39
+
+
+******** <class 'pyscf.dft.roks.ROKS'> ********
+method = ROKS
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpj6eaqvs9
+max_memory 4000 MB (current use 97 MB)
+num. doubly occ = 2  num. singly occ = 4
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7f8de3f48900>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7f8de3f48860>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+tot grids = 28240
+init E= -4.41045224114114
+
+WARN: HOMO -0.0589510625814953 >= LUMO -0.0589510625814967
+
+cycle= 1 E= -10.7735336238503  delta_E= -6.36  |g|= 0.147  |ddm|= 1.37
+
+WARN: HOMO -0.119784526393181 >= LUMO -0.130420598850195
+
+cycle= 2 E= -10.7815918331621  delta_E= -0.00806  |g|= 0.115  |ddm|= 0.355
+
+WARN: HOMO -0.074782566426601 >= LUMO -0.090315822164936
+
+cycle= 3 E= -10.7886380727913  delta_E= -0.00705  |g|= 0.00523  |ddm|= 0.134
+
+WARN: HOMO -0.0714965170104267 >= LUMO -0.0876348291490833
+
+cycle= 4 E= -10.7886494114664  delta_E= -1.13e-05  |g|= 0.00182  |ddm|= 0.00688
+
+WARN: HOMO -0.0715111700361555 >= LUMO -0.0876945647404677
+
+cycle= 5 E= -10.788651215269  delta_E= -1.8e-06  |g|= 6.58e-05  |ddm|= 0.00182
+
+WARN: HOMO -0.0714717418330142 >= LUMO -0.0876742098548295
+
+cycle= 6 E= -10.7886512178092  delta_E= -2.54e-09  |g|= 4.23e-06  |ddm|= 9.38e-05
+
+WARN: HOMO -0.0714727177265207 >= LUMO -0.0876744506509429
+
+cycle= 7 E= -10.7886512178112  delta_E= -2e-12  |g|= 1.06e-06  |ddm|= 2.22e-05
+
+WARN: HOMO -0.0714727512827123 >= LUMO -0.0876744619408846
+
+Extra cycle  E= -10.7886512178042  delta_E= 7.03e-12  |g|= 1.04e-06  |ddm|= 2.05e-05
+converged SCF energy = -10.7886512178042

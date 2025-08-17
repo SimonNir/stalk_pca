@@ -1,0 +1,380 @@
+#INFO: **** input file is /oscar/home/snirenbe/stalk_pca/examples/nexus/carbon_dimer/relax/relax.py ****
+#!/usr/bin/env python3
+
+from pyscf import dft
+
+
+### generated system text ###
+from pyscf import gto as gto_loc
+mol = gto_loc.Mole()
+mol.verbose  = 4
+mol.atom     = '''
+               C    0.00000000   0.00000000  -0.77000000
+               C    0.00000000   0.00000000   0.77000000
+               '''
+mol.basis    = 'ccpvdz'
+mol.unit     = 'A'
+mol.ecp      = 'ccecp'
+mol.charge   = 0
+mol.spin     = 4
+mol.symmetry = False
+mol.build()
+### end generated system text ###
+
+
+
+### generated calculation text ###
+mf = dft.RKS(mol)
+mf.xc = 'pbe'
+e_scf = mf.kernel()
+### end generated calculation text ###
+
+from pyscf.geomopt.geometric_solver import optimize
+mol_eq = optimize(mf, maxsteps=100)
+from pyscf.gto.mole import tofile
+# Write to external file
+tofile(mol_eq, 'relax.xyz', format='xyz')
+# Write to output file 
+print(mol_eq.atom_coords())
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='node2334.oscar.ccv.brown.edu', release='5.14.0-284.11.1.el9_2_cifs.x86_64', version='#1 SMP PREEMPT_DYNAMIC Tue Feb 20 16:51:59 EST 2024', machine='x86_64')  Threads 1
+Python 3.11.0 (main, Jan 10 2024, 14:25:36) [GCC 11.3.1 20221121 (Red Hat 11.3.1-4)]
+numpy 2.3.2  scipy 1.16.1  h5py 3.14.0
+Date: Sat Aug 16 20:31:39 2025
+PySCF version 2.10.0
+PySCF path  /users/snirenbe/stalk_venv/lib64/python3.11/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 8
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 4
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = A
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 C      0.000000000000   0.000000000000  -0.770000000000 AA    0.000000000000   0.000000000000  -1.455089115915 Bohr   0.0
+[INPUT]  2 C      0.000000000000   0.000000000000   0.770000000000 AA    0.000000000000   0.000000000000   1.455089115915 Bohr   0.0
+
+nuclear repulsion = 5.49794504851948
+number of shells = 10
+number of NR pGTOs = 52
+number of NR cGTOs = 28
+basis = ccpvdz
+ecp = ccecp
+CPU time:         0.37
+
+
+******** <class 'pyscf.dft.roks.ROKS'> ********
+method = ROKS
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp11uuf7qi
+max_memory 4000 MB (current use 97 MB)
+num. doubly occ = 2  num. singly occ = 4
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7fcd8fc68860>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7fcd8fc687c0>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+tot grids = 28240
+init E= -4.41477037690861
+
+WARN: HOMO -0.0569861526624226 >= LUMO -0.0569861526624235
+
+cycle= 1 E= -10.7738550354425  delta_E= -6.36  |g|= 0.145  |ddm|= 1.38
+
+WARN: HOMO -0.116394590577857 >= LUMO -0.127047374424283
+
+cycle= 2 E= -10.7816808472381  delta_E= -0.00783  |g|= 0.114  |ddm|= 0.353
+
+WARN: HOMO -0.072012433631309 >= LUMO -0.0875555871861621
+
+cycle= 3 E= -10.7885116824953  delta_E= -0.00683  |g|= 0.00505  |ddm|= 0.133
+
+WARN: HOMO -0.0687704040331512 >= LUMO -0.0849255178092454
+
+cycle= 4 E= -10.7885222666908  delta_E= -1.06e-05  |g|= 0.00168  |ddm|= 0.00662
+
+WARN: HOMO -0.0687988347352239 >= LUMO -0.0849968577283395
+
+cycle= 5 E= -10.7885238082963  delta_E= -1.54e-06  |g|= 6.39e-05  |ddm|= 0.00168
+
+WARN: HOMO -0.0687601985285996 >= LUMO -0.0849769612368558
+
+cycle= 6 E= -10.7885238106752  delta_E= -2.38e-09  |g|= 3.78e-06  |ddm|= 8.93e-05
+
+WARN: HOMO -0.0687610576936589 >= LUMO -0.0849771621834692
+
+cycle= 7 E= -10.788523810683  delta_E= -7.84e-12  |g|= 2.76e-07  |ddm|= 5.87e-06
+
+WARN: HOMO -0.0687610954325452 >= LUMO -0.0849771764801051
+
+Extra cycle  E= -10.7885238106827  delta_E= 2.56e-13  |g|= 2.13e-07  |ddm|= 3.97e-06
+converged SCF energy = -10.7885238106827
+Create scanner for <class 'pyscf.grad.roks.Gradients'>
+Create scanner for <class 'pyscf.dft.roks.ROKS'>
+
+Geometry optimization cycle 1
+Cartesian coordinates (Angstrom)
+ Atom        New coordinates             dX        dY        dZ
+   C   0.000000   0.000000  -0.770000    0.000000  0.000000  0.000000
+   C   0.000000   0.000000   0.770000    0.000000  0.000000  0.000000
+New geometry
+   1 C      0.000000000000   0.000000000000  -0.770000000000 AA    0.000000000000   0.000000000000  -1.455089115915 Bohr
+
+   2 C      0.000000000000   0.000000000000   0.770000000000 AA    0.000000000000   0.000000000000   1.455089115915 Bohr
+
+
+
+******** <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+method = ROKS_Scanner
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp11uuf7qi
+max_memory 4000 MB (current use 161 MB)
+num. doubly occ = 2  num. singly occ = 4
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7fcd8fc68860>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7fcd8fc687c0>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+tot grids = 28240
+init E= -10.7885238106827
+
+WARN: HOMO -0.0687610820602318 >= LUMO -0.0849771659362496
+
+cycle= 1 E= -10.7885238106825  delta_E= 2.49e-13  |g|= 2.04e-07  |ddm|= 3.96e-06
+
+WARN: HOMO -0.0687610796674009 >= LUMO -0.0849771635817668
+
+Extra cycle  E= -10.7885238106823  delta_E= 2.45e-13  |g|= 2.01e-07  |ddm|= 3.96e-06
+converged SCF energy = -10.7885238106823
+
+
+******** <class 'pyscf.grad.rhf.Gradients_Scanner'> for <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+unit = Eh/Bohr
+max_memory 4000 MB (current use 173 MB)
+grid_response = False
+--------------- ROKS_Scanner gradients ---------------
+         x                y                z
+0 C     0.0000000000     0.0000000000     0.0085592957
+1 C     0.0000000000     0.0000000000    -0.0085592957
+----------------------------------------------
+cycle 1: E = -10.7885238107  dE = -10.7885  norm(grad) = 0.0121047
+
+Geometry optimization cycle 2
+Cartesian coordinates (Angstrom)
+ Atom        New coordinates             dX        dY        dZ
+   C  -0.000000  -0.000000  -0.777941   -0.000000 -0.000000 -0.007941
+   C  -0.000000  -0.000000   0.777941   -0.000000 -0.000000  0.007941
+New geometry
+   1 C     -0.000000000000  -0.000000000000  -0.777941013172 AA   -0.000000000000  -0.000000000000  -1.470095455961 Bohr
+
+   2 C     -0.000000000000  -0.000000000000   0.777941013171 AA   -0.000000000000  -0.000000000000   1.470095455961 Bohr
+
+
+
+******** <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+method = ROKS_Scanner
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp11uuf7qi
+max_memory 4000 MB (current use 180 MB)
+num. doubly occ = 2  num. singly occ = 4
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7fcd8fc68860>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7fcd8fc687c0>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+tot grids = 28240
+init E= -10.7783205661964
+
+WARN: HOMO -0.0761275018320709 >= LUMO -0.0933487226771585
+
+cycle= 1 E= -10.7886126173453  delta_E= -0.0103  |g|= 0.00822  |ddm|= 0.0304
+
+WARN: HOMO -0.0690808292734978 >= LUMO -0.0855459115854272
+
+cycle= 2 E= -10.7886289409237  delta_E= -1.63e-05  |g|= 0.00644  |ddm|= 0.0182
+
+WARN: HOMO -0.0712464582250854 >= LUMO -0.0874647317068515
+
+cycle= 3 E= -10.7886516438665  delta_E= -2.27e-05  |g|= 6.21e-05  |ddm|= 0.00734
+
+WARN: HOMO -0.0712849471350694 >= LUMO -0.08748820652609
+
+cycle= 4 E= -10.7886516460082  delta_E= -2.14e-09  |g|= 3.28e-06  |ddm|= 8.02e-05
+
+WARN: HOMO -0.0712867701537791 >= LUMO -0.087489652344992
+
+cycle= 5 E= -10.7886516460134  delta_E= -5.27e-12  |g|= 7.95e-07  |ddm|= 4.91e-06
+
+WARN: HOMO -0.0712865519351421 >= LUMO -0.0874894745107247
+
+Extra cycle  E= -10.7886516460134  delta_E= 2.13e-14  |g|= 6.68e-07  |ddm|= 2.89e-06
+converged SCF energy = -10.7886516460134
+
+
+******** <class 'pyscf.grad.rhf.Gradients_Scanner'> for <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+unit = Eh/Bohr
+max_memory 4000 MB (current use 180 MB)
+grid_response = False
+--------------- ROKS_Scanner gradients ---------------
+         x                y                z
+0 C     0.0000000000     0.0000000000     0.0000993481
+1 C    -0.0000000000    -0.0000000000    -0.0000993481
+----------------------------------------------
+cycle 2: E = -10.788651646  dE = -0.000127835  norm(grad) = 0.000140499
+
+Geometry optimization cycle 3
+Cartesian coordinates (Angstrom)
+ Atom        New coordinates             dX        dY        dZ
+   C  -0.000000  -0.000000  -0.778034   -0.000000 -0.000000 -0.000093
+   C   0.000000  -0.000000   0.778034    0.000000  0.000000  0.000093
+New geometry
+   1 C     -0.000000000000  -0.000000000000  -0.778034267332 AA   -0.000000000000  -0.000000000000  -1.470271680785 Bohr
+
+   2 C      0.000000000000  -0.000000000000   0.778034267217 AA    0.000000000000  -0.000000000000   1.470271680567 Bohr
+
+
+
+******** <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+method = ROKS_Scanner
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp11uuf7qi
+max_memory 4000 MB (current use 180 MB)
+num. doubly occ = 2  num. singly occ = 4
+XC library pyscf.dft.libxc version 7.0.0
+    S. Lehtola, C. Steigemann, M. J.T. Oliveira, and M. A.L. Marques.,  SoftwareX 7, 1–5 (2018)
+XC functionals = pbe
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof.,  Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7fcd8fc68860>
+grids dens level: 3
+symmetrized grids: False
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7fcd8fc687c0>
+small_rho_cutoff = 1e-07
+Set gradient conv threshold to 3.16228e-05
+tot grids = 28240
+init E= -10.7885337307961
+
+WARN: HOMO -0.0713714156758232 >= LUMO -0.087585816205807
+
+cycle= 1 E= -10.7886516590147  delta_E= -0.000118  |g|= 9.48e-05  |ddm|= 0.000354
+
+WARN: HOMO -0.0712905135923229 >= LUMO -0.0874962621014553
+
+cycle= 2 E= -10.7886516611503  delta_E= -2.14e-09  |g|= 7.47e-05  |ddm|= 0.00021
+
+WARN: HOMO -0.0713153589581704 >= LUMO -0.0875182860499293
+
+cycle= 3 E= -10.788651664068  delta_E= -2.92e-09  |g|= 1.54e-05  |ddm|= 8.66e-05
+
+WARN: HOMO -0.0713155396714613 >= LUMO -0.0875184181042018
+
+cycle= 4 E= -10.7886516642024  delta_E= -1.34e-10  |g|= 2.77e-06  |ddm|= 1.54e-05
+
+WARN: HOMO -0.0713159981485748 >= LUMO -0.0875187338854131
+
+Extra cycle  E= -10.7886516641391  delta_E= 6.33e-11  |g|= 1.07e-05  |ddm|= 1.18e-05
+converged SCF energy = -10.7886516641391
+
+
+******** <class 'pyscf.grad.rhf.Gradients_Scanner'> for <class 'pyscf.scf.hf.ROKS_Scanner'> ********
+unit = Eh/Bohr
+max_memory 4000 MB (current use 181 MB)
+grid_response = False
+--------------- ROKS_Scanner gradients ---------------
+         x                y                z
+0 C    -0.0000000000    -0.0000000000     0.0000048669
+1 C     0.0000000000    -0.0000000000    -0.0000048670
+----------------------------------------------
+cycle 3: E = -10.7886516641  dE = -1.81257e-08  norm(grad) = 6.88287e-06
+[[-9.62510912e-15 -2.66128527e-15 -1.47027168e+00]
+ [ 5.50823122e-15 -2.02084464e-15  1.47027168e+00]]
