@@ -3,7 +3,7 @@
 from stalk.lsi.TransitionPathway import TransitionPathway
 from stalk.nexus import NexusStructure
 from ase.io import read 
-from params import pes, forward, backward
+from params import pes_pyscf, forward, backward
 
 traj_mep_aligned = read('neb_mep_aligned.xyz@:')
 
@@ -34,4 +34,4 @@ tpw = TransitionPathway(
     all_images=traj_neb,
     active_indices=range(len(traj_neb))
 )
-tpw.calculate_hessians(pes=pes)
+tpw.calculate_hessians(pes=pes_pyscf)
