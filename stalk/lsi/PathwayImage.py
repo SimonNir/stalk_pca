@@ -298,20 +298,24 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
         return original_structure.backward_func(full_params, **original_structure.backward_args)
     
     # Create the subspace NexusStructure with proper mappings
-    structure_sub = NexusStructure(
-        params=zeros(len(subspace)),
-        forward=forward_subspace,
-        backward=backward_subspace,
-        forward_args=original_structure.forward_args.copy(),
-        backward_args=original_structure.backward_args.copy(),
-        pos=original_structure.pos.copy() if original_structure.pos is not None else None,
-        axes=original_structure.axes.copy() if original_structure.axes is not None else None,
-        elem=original_structure.elem.copy() if original_structure.elem is not None else None,
-        units=original_structure.units,
-        dim=original_structure.dim,
-        tol=original_structure.tol,
-        translate=False  # Don't translate since we're setting up the mappings manually
-    )
+    structure_sub = deepcopy(original_structure)
+    # Reset to zero parameters in subspace
+    structure_sub.params = zeros(len(subspace))
+    structure_sub.params_err = zeros(len(subspace))
+    
+    # Set up the subspace mappings
+    structure_sub.forward_func = forward_subspace
+    structure_sub.backward_func = backward_subspace
+    structure_sub.forward_args = original_structure.forward_args.copy()
+    structure_sub.backward_args = original_structure.backward_args.copy()
+    
+    # Clear jobs and analysis state since this is a different structure
+    structure_sub._jobs = None
+    structure_sub.value = None
+    structure_sub.error = 0.0
+    
+    # Set a descriptive label
+    structure_sub.label = f"{original_structure.label}_subspace"
     
     return structure_sub
 
