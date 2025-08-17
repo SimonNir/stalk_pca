@@ -244,10 +244,11 @@ class PathwayImage():
 
 
 def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
-    structure = deepcopy(structure0)
-    structure.label = structure_sub.label
+    # If structure0 is a NexusStructure, preserve that type
+    structure = structure0.copy(label=structure_sub.label)
     structure.shift_params(structure_sub.params @ subspace)
-    print(type(structure0), type(structure_sub), type(structure))
+    if isinstance(structure0, NexusStructure):
+        assert isinstance(structure, NexusStructure)
     return structure
 # end def
 
