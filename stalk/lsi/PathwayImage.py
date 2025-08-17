@@ -5,13 +5,14 @@ __author__ = "Juha Tiihonen"
 __email__ = "tiihonen@iki.fi"
 __license__ = "BSD-3-Clause"
 
-from copy import copy
+from copy import copy, deepcopy
 from os import makedirs
 from numpy import savetxt, loadtxt, array
 from functools import partial
 
 from numpy import ndarray, zeros
 from stalk.lsi.LineSearchIteration import LineSearchIteration
+from stalk.nexus import NexusStructure
 from stalk.params.ParameterHessian import ParameterHessian
 from stalk.params.ParameterSet import ParameterSet
 from stalk.params.PesFunction import PesFunction
@@ -243,8 +244,10 @@ class PathwayImage():
 
 
 def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
-    structure = structure0.copy(label=structure_sub.label)
+    structure = deepcopy(structure0)
+    structure.label = structure_sub.label
     structure.shift_params(structure_sub.params @ subspace)
+    print(type(structure0), type(structure_sub), type(structure))
     return structure
 # end def
 
