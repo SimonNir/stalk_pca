@@ -104,4 +104,7 @@ class NexusStructure(ParameterStructure):
         return result
     # end def
 
+    # def __str__(self):
+    #     return self.label
+
 # end class

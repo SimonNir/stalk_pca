@@ -17,8 +17,13 @@ class FilesLoader(PesLoader):
         self.args = args
     # end def
 
-    def _load(self, path, suffix='energy.dat', **kwargs):
-        value, error = loadtxt('{}/{}'.format(path, suffix))
+    def _load(self, structure, suffix='energy.dat', **kwargs):
+        # Use the job_path attribute of the structure instead of its string representation
+        if hasattr(structure, 'job_path'):
+            path = structure.job_path
+        else:
+            path = ''
+        value, error = loadtxt(f'{path}{suffix}')
         return PesResult(value, error)
     # end def
 
