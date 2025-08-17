@@ -299,6 +299,9 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
     
     # Create the subspace NexusStructure with proper mappings
     structure_sub = deepcopy(original_structure)
+
+    # Clear the existing parameter list so we can initialize with new dimensions
+    structure_sub._param_list = []
     
     # Set up the subspace mappings first
     structure_sub.forward_func = forward_subspace
