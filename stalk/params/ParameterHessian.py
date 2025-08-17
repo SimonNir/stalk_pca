@@ -119,7 +119,7 @@ class ParameterHessian():
         structure=None,
         dp=0.001,
         dpos_mode=False,
-        path=None,
+        # path=None,
         **kwargs,
     ):
         if structure is not None:
@@ -138,10 +138,10 @@ class ParameterHessian():
 
         # Get list of displacements and structures
         dp_list, structure_list = self._get_fdiff_data(dps, dpos_mode=dpos_mode)
-        if path is not None:
-            for s in structure_list:
-                if hasattr(s, "job_path"):
-                    s.job_path = path + '/' + s.label + '/'
+        # if path is not None:
+        #     for s in structure_list:
+        #         if hasattr(s, "job_path"):
+        #             s.job_path = path + '/' + s.label + '/'
         
         pes.evaluate_all(structure_list, **kwargs)
         # Issue warning when eqm energy is not the apparent minimum

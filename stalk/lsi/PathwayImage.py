@@ -136,6 +136,7 @@ class PathwayImage():
             hessian_array = loadtxt(hessian_file, ndmin=2)
             hessian.init_hessian_array(hessian_array)
         except FileNotFoundError:
+            print("attempted path:",path)
             hessian.compute_fdiff(
                 pes=pes_comp,
                 path=path,

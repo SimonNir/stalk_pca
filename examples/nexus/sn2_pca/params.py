@@ -29,7 +29,7 @@ from nexus import generate_physical_system, generate_convert4qmc
 from structure import Structure
 
 # This requires the following job arguments to be defined in local nxs.py
-from nxs import pyscfjob, optjob, dmcjob, pwscfjob, p2qjob
+from nxs import pyscfjob, optjob, dmcjob
 
 # Pseudos (execute download_pseudos.sh in the working directory)
 qmcpseudos = ['F.ccECP.xml', 'C.ccECP.xml', 'H.ccECP.xml']

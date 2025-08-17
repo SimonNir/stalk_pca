@@ -17,7 +17,7 @@ class TransitionPathway():
     _path = ''  # base path
 
     def __init__(self, path='', all_images: list = None, active_indices: list[int] = None):
-        self.path = path
+        self._path = path
 
         # Wrap only ParameterSet objects; leave PathwayImage as-is
         self._all_images = []
