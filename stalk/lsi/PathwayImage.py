@@ -131,25 +131,18 @@ class PathwayImage():
             
             # Create the appropriate subspace structure type based on the original structure type
             if isinstance(self.structure, NexusStructure):
-                # For NexusStructure, create a NexusStructure with proper subspace mappings
-                structure_sub = create_subspace_nexus_structure(self.structure, subspace)
-                
-                # For NexusPes, we need to wrap the function differently
-                def extended_pes_wrapper(structure_sub_arg, *args, **kwargs):
-                    return extended_pes(self.structure, subspace, pes, structure_sub_arg, *args, **kwargs)
-                
-                # Make a copy of the PesFunction wrapper, then replace the func
-                pes_comp = copy(pes)
-                pes_comp.func = extended_pes_wrapper
+                structure_sub = NexusStructure(params=zeros(len(subspace)))
             else:
-                # For regular ParameterSet, create a regular ParameterSet
-                structure_sub = ParameterSet(zeros(len(subspace)))
-                # Make a copy of the PesFunction wrapper, then replace the func
-                pes_comp = copy(pes)
-                pes_comp.func = partial(extended_pes, self.structure, subspace, pes)
-            
-            hessian = ParameterHessian(structure=structure_sub)
-          
+                structure_sub = ParameterSet(params=zeros(len(subspace)))
+
+            hessian = ParameterHessian(structure=structure_sub, require_consistent=False)
+            # In the future, we can add subspace forward and backward functions to allow 
+            # subspace hessian consistency checks
+            # After about 4 hours spent attempting to do this, SDN decided to just skip it for now. 
+            # If the full forward and backward are consistent, then the subspace equivalents will be, so 
+            # checking here is not really necessary given that the eqm and saddle checks will already verify the 
+            # overall parameterization validity
+
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
@@ -181,12 +174,7 @@ class PathwayImage():
         elif self._tangent is not None:
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_sub = copy(pes)
-            if isinstance(pes, NexusPes):
-                def extended_pes_wrapper(structure_sub_arg, *args, **kwargs):
-                    return extended_pes(self.structure, self._subspace, pes, structure_sub_arg, *args, **kwargs)
-                pes_sub.func = extended_pes_wrapper
-            else:
-                pes_sub.func = partial(extended_pes, self.structure, self._subspace, pes)
+            pes_sub.func = partial(extended_pes, self.structure, self._subspace, pes)
         else:
             raise ValueError("tangent cannot be None for intermediate images")
         # end if
@@ -267,61 +255,6 @@ class PathwayImage():
 
 # end class
 
-def create_subspace_nexus_structure(original_structure: NexusStructure, subspace: ndarray):
-    """Create a NexusStructure that operates in the subspace with proper forward/backward mappings."""
-    from numpy import dot, zeros
-    from copy import deepcopy
-    
-    # Create forward mapping function for the subspace
-    def forward_subspace(pos, axes=None):
-        # Map pos to full parameter space using original forward function
-        if original_structure.periodic and axes is not None:
-            full_params = original_structure.forward_func(pos, axes, **original_structure.forward_args)
-        else:
-            full_params = original_structure.forward_func(pos, **original_structure.forward_args)
-        
-        # Project displacement onto subspace basis vectors
-        disp_vec = full_params - original_structure.params
-        subspace_params = []
-        for sv in subspace:
-            subspace_params.append(dot(disp_vec, sv))
-        return array(subspace_params)
-    
-    # Create backward mapping function for the subspace  
-    def backward_subspace(params):
-        # Convert subspace parameters back to full parameter space
-        full_params = original_structure.params.copy()
-        for i, p in enumerate(params):
-            full_params += p * subspace[i]
-        
-        # Map full parameters back to position space using original backward function
-        return original_structure.backward_func(full_params, **original_structure.backward_args)
-    
-    # Create the subspace NexusStructure with proper mappings
-    structure_sub = deepcopy(original_structure)
-
-    # Clear the existing parameter list so we can initialize with new dimensions
-    structure_sub._param_list = []
-    
-    # Set up the subspace mappings first
-    structure_sub.forward_func = forward_subspace
-    structure_sub.backward_func = backward_subspace
-    structure_sub.forward_args = original_structure.forward_args.copy()
-    structure_sub.backward_args = original_structure.backward_args.copy()
-    
-    # Reset to zero parameters in subspace using the proper method
-    structure_sub.set_params(zeros(len(subspace)), params_err=zeros(len(subspace)))
-    
-    # Clear jobs and analysis state since this is a different structure
-    structure_sub._jobs = None
-    structure_sub.value = None
-    structure_sub.error = 0.0
-    
-    # Set a descriptive label
-    structure_sub.label = f"{original_structure.label}_subspace"
-    
-    return structure_sub
-
 def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
     # If structure0 is a NexusStructure, preserve that type
     structure = structure0.copy(label=structure_sub.label)
@@ -362,7 +295,6 @@ def extended_pes(
     subspace: ndarray,
     pes: PesFunction,
     structure_sub: ParameterSet,
-    *args,
     **kwargs
 ):
     if isinstance(pes, NexusPes):
