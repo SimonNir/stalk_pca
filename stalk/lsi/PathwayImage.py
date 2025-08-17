@@ -12,7 +12,7 @@ from functools import partial
 
 from numpy import ndarray, zeros
 from stalk.lsi.LineSearchIteration import LineSearchIteration
-from stalk.nexus import NexusStructure
+from stalk.nexus import NexusPes, NexusStructure
 from stalk.params.ParameterHessian import ParameterHessian
 from stalk.params.ParameterSet import ParameterSet
 from stalk.params.PesFunction import PesFunction
@@ -285,6 +285,8 @@ def extended_pes(
     structure_sub: ParameterSet,
     **kwargs
 ):
+    if isinstance(pes, NexusPes):
+        assert isinstance(structure, NexusStructure)
     new_structure = extend_structure(structure, structure_sub, subspace)
     return pes.func(new_structure, **kwargs)
 # end def
