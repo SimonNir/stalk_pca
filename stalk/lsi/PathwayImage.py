@@ -318,36 +318,10 @@ def create_subspace_nexus_structure(original_structure: NexusStructure, subspace
     return structure_sub
 
 
-def extend_structure(structure0: ParameterSet, structure_sub, subspace):
-    # Handle case where structure_sub might be a Nexus Structure object (without label attribute)
-    if hasattr(structure_sub, 'label'):
-        label = structure_sub.label
-    else:
-        label = ''  # Default label for Nexus Structure objects
-    
+def extend_structure(structure0: ParameterSet, structure_sub: ParameterSet, subspace):
     # If structure0 is a NexusStructure, preserve that type
-    structure = structure0.copy(label=label)
-    
-    # Get parameters from structure_sub - handle different object types
-    if hasattr(structure_sub, 'params'):
-        # It's a ParameterSet or NexusStructure - use params directly
-        params_sub = structure_sub.params
-    elif hasattr(structure_sub, 'pos'):
-        # It's a Nexus Structure object - we need to map it back to parameters using forward mapping
-        if structure0.forward_func is not None:
-            if structure0.periodic and hasattr(structure_sub, 'axes'):
-                params_full = structure0.forward_func(structure_sub.pos, structure_sub.axes, **structure0.forward_args)
-            else:
-                params_full = structure0.forward_func(structure_sub.pos, **structure0.forward_args)
-            # Project displacement onto subspace
-            disp_vec = params_full - structure0.params
-            params_sub = array([dot(disp_vec, sv) for sv in subspace])
-        else:
-            raise ValueError("Cannot extract parameters from Structure object without forward mapping")
-    else:
-        raise ValueError(f"Cannot extract parameters from object of type {type(structure_sub)}")
-    
-    structure.shift_params(params_sub @ subspace)
+    structure = structure0.copy(label=structure_sub.label)
+    structure.shift_params(structure_sub.params @ subspace)
     if isinstance(structure0, NexusStructure):
         assert isinstance(structure, NexusStructure)
     return structure
@@ -404,22 +378,36 @@ def extended_pes(
     structure: ParameterSet,
     subspace: ndarray,
     pes: PesFunction,
-    structure_sub: ParameterSet,
+    nexus_structure,  # This is actually a regular Nexus Structure, not NexusStructure
     *args,
     **kwargs
 ):
-    # Debug: Print what we're actually receiving
-    print(f"DEBUG: extended_pes received structure_sub of type: {type(structure_sub)}")
-    if hasattr(structure_sub, 'params'):
-        print(f"DEBUG: structure_sub has params: {structure_sub.params}")
-    elif hasattr(structure_sub, 'pos'):
-        print(f"DEBUG: structure_sub has pos: {structure_sub.pos.shape}")
-    
     if isinstance(pes, NexusPes):
         assert isinstance(structure, NexusStructure), f"Expected NexusStructure when using NexusPes, got {type(structure)}"
-        # We expect structure_sub to be NexusStructure too, but let's see what we actually get
-        print(f"DEBUG: structure_sub type check - expected NexusStructure, got {type(structure_sub)}")
+        # nexus_structure is a regular Nexus Structure object, not a NexusStructure
     
-    new_structure = extend_structure(structure, structure_sub, subspace)
-    return pes.func(new_structure, *args, **kwargs)
+    # We need to convert the Nexus Structure back to parameters using the original structure's forward mapping
+    if structure.forward_func is not None:
+        if structure.periodic and hasattr(nexus_structure, 'axes'):
+            params_full = structure.forward_func(nexus_structure.pos, nexus_structure.axes, **structure.forward_args)
+        else:
+            params_full = structure.forward_func(nexus_structure.pos, **structure.forward_args)
+        
+        # Project displacement onto subspace to get subspace parameters
+        disp_vec = params_full - structure.params
+        params_sub = array([dot(disp_vec, sv) for sv in subspace])
+        
+        # Create a temporary NexusStructure in subspace for extend_structure
+        temp_structure_sub = structure.copy()
+        temp_structure_sub._param_list = []  # Clear params
+        temp_structure_sub.set_params(params_sub)  # Set subspace params
+        
+        # Now extend back to full space
+        new_structure = extend_structure(structure, temp_structure_sub, subspace)
+        
+        # Convert to Nexus Structure for the PES function
+        return pes.func(new_structure.get_nexus_structure(), *args, **kwargs)
+    else:
+        raise ValueError("Cannot process Nexus Structure without forward mapping function")
+# end def
 # end def
