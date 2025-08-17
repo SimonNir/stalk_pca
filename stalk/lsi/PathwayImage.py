@@ -13,6 +13,7 @@ from functools import partial
 from numpy import ndarray, zeros
 from stalk.lsi.LineSearchIteration import LineSearchIteration
 from stalk.nexus import NexusPes, NexusStructure
+from stalk.params import ParameterStructure
 from stalk.params.ParameterHessian import ParameterHessian
 from stalk.params.ParameterSet import ParameterSet
 from stalk.params.PesFunction import PesFunction
@@ -127,8 +128,15 @@ class PathwayImage():
             # Make a copy of the PesFunction wrapper, then replace the func
             pes_comp = copy(pes)
             pes_comp.func = partial(extended_pes, self.structure, subspace, pes)
-            # Subspace parameter set is a zero-centered p-1 vector
-            structure_sub = ParameterSet(zeros(len(subspace)))
+            
+            # Create the appropriate subspace structure type based on the original structure type
+            if isinstance(self.structure, NexusStructure):
+                structure_sub = NexusStructure(zeros(len(subspace)))
+            elif isinstance(self.structure, ParameterStructure):
+                structure_sub = ParameterStructure(zeros(len(subspace)))
+            else: 
+                structure_sub = ParameterSet(zeros(len(subspace)))
+
             hessian = ParameterHessian(structure=structure_sub)
         else:
             raise ValueError("tangent cannot be None for intermediate images")
