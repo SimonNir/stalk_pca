@@ -295,6 +295,7 @@ def extended_pes(
     subspace: ndarray,
     pes: PesFunction,
     structure_sub: ParameterSet,
+    *args,
     **kwargs
 ):
     if isinstance(pes, NexusPes):
