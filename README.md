@@ -25,7 +25,7 @@ For results based on the transition pathway or saddle search methods, we kindly 
 The Journal of Chemical Theory and Computation \
 2024, 20, 17, 7416–7429
 
-And, if utilizing the PCA improvement, we kindly ask you to cite [the work introducing it]().
+And, if utilizing the PCA improvement for parameterization, we kindly ask you to cite [the work introducing it]().
 > TBD
 
 
