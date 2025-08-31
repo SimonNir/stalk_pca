@@ -1,7 +1,10 @@
 # Surrogate Theory Accelerated Line-search Kit (STALK)
 
 **Note!** *This is NOT the official release but rather an experimental version to play around with
-incorporating automatic parameterization and transition pathway functionalities.*
+incorporating automatic parameterization and transition pathway functionalities.
+
+For a well-tested implementation of the automated transition pathway workflow, please refer to https://github.com/SimonNir/legacy_surrogate_hessian_pca_workflow.git
+*
 
 Surrogate Theory Accelerated Line-search Kit (STALK) is a Python implementation of The
 Surrogate Hessian Accelerated Parallel Line-search method. The method is intended for
